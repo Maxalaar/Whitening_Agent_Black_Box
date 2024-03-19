@@ -1,0 +1,19 @@
+# Temporary files
+*.swp
+*~
+
+# PyCharm configuration files
+.idea/
+
+# Compiled Python files
+*.pyc
+__pycache__/
+
+# Log files
+*.log
+
+# Python virtual environment
+venv/
+
+# Custom results directory
+./results/

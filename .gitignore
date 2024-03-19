@@ -2,9 +2,6 @@
 *.swp
 *~
 
-# PyCharm configuration files
-.idea/
-
 # Compiled Python files
 *.pyc
 __pycache__/
@@ -16,4 +13,5 @@ __pycache__/
 venv/
 
 # Custom results directory
-./results/
+/results/
+

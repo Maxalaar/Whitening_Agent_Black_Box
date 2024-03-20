@@ -31,6 +31,11 @@ def environment_information():
         print(f'GPU Name: {gpu_name}')
     print()
 
-    resources = ray.cluster_resources()
-    print('Number of CPUs accessible to Ray:', resources.get('CPU', 0))
-    print('Number of GPUs accessible to Ray:', resources.get('GPU', 0))
+    if ray.is_initialized():
+        resources = ray.cluster_resources()
+        print('Number of CPUs accessible to Ray:', resources.get('CPU', 0))
+        print('Number of GPUs accessible to Ray:', resources.get('GPU', 0))
+    else:
+        print('Ray is not initialized')
+
+    print()

@@ -18,6 +18,9 @@ class PongSurvivor(gym.Env):
         self.action_space = gym.spaces.Discrete(2)
         self.observation_space = gym.spaces.Box(0, 1, shape=(2,), dtype=np.float32)
 
+        self.time_step: float = 0.01
+        self.play_area: np.ndarray = np.array([10, 10])
+
     def reset(self, seed=None, options=None):
         return np.array([0, 0], dtype=np.float32), {}
 

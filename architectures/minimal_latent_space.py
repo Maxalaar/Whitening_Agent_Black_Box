@@ -9,7 +9,7 @@ class MinimalLatentSpaceModel(TorchModelV2, nn.Module):
     def __init__(self, observation_space, action_space, number_outputs, model_configuration, name):
         TorchModelV2.__init__(self, observation_space, action_space, number_outputs, model_configuration, name)
         nn.Module.__init__(self)
-        self.latent_space_size = 64
+        self.latent_space_size = 10
 
         self.input = None
         self.latent_space = None

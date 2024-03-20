@@ -4,32 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d79a488c-ca55-4e22-a705-7a6efe046d96" name="Changes" comment="Add .gitignore">
-      <change afterPath="$PROJECT_DIR$/.idea/Whitening_Agent_Black_Box.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/architectures/minimal_latent_space.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/architectures/minimal_model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/architectures/register_architectures.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/environments/pong_survivor/pong_survivor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/environments/register_environments.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executables/debugs/debug_dataset_handler.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executables/debugs/debug_h5py.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executables/debugs/debug_rllib.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executables/debugs/debug_rollout.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executables/debugs/ray_dataset.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executables/generate_latent_space_dataset.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executables/generate_observation_dataset.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executables/latent_space_visualization.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executables/training_agent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utilities/dataset_handler.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utilities/environment_information.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utilities/global_include.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="d79a488c-ca55-4e22-a705-7a6efe046d96" name="Changes" comment="Initial commit">
+      <change afterPath="$PROJECT_DIR$/environments/pong_survivor/ball.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executables/debugs/debug_matplotlib.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executables/latent_space_clustering.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utilities/sklearn_classifier_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/architectures/minimal_latent_space.py" beforeDir="false" afterPath="$PROJECT_DIR$/architectures/minimal_latent_space.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/environments/pong_survivor/pong_survivor.py" beforeDir="false" afterPath="$PROJECT_DIR$/environments/pong_survivor/pong_survivor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/executables/generate_latent_space_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/executables/generate_latent_space_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/executables/generate_observation_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/executables/generate_observation_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/executables/latent_space_visualization.py" beforeDir="false" afterPath="$PROJECT_DIR$/executables/latent_space_visualization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/executables/training_agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/executables/training_agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utilities/dataset_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilities/dataset_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utilities/environment_information.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilities/environment_information.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utilities/global_include.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilities/global_include.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,28 +50,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.clean_rl_test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.debug_dataset_handler.executor&quot;: &quot;Run&quot;,
-    &quot;Python.debug_h5py.executor&quot;: &quot;Run&quot;,
-    &quot;Python.debug_rllib.executor&quot;: &quot;Run&quot;,
-    &quot;Python.debug_rollout.executor&quot;: &quot;Run&quot;,
-    &quot;Python.generate_data_from_agent.executor&quot;: &quot;Run&quot;,
-    &quot;Python.generate_dataset_from_agent.executor&quot;: &quot;Run&quot;,
-    &quot;Python.generate_latent_space_dataset.executor&quot;: &quot;Run&quot;,
-    &quot;Python.generate_observation_dataset.executor&quot;: &quot;Run&quot;,
-    &quot;Python.latent_space_visualization.executor&quot;: &quot;Run&quot;,
-    &quot;Python.minimal_latent_space.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ray_dataset.executor&quot;: &quot;Run&quot;,
-    &quot;Python.training_agent.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/malaarabiou/Programming_Projects/Pycharm_Projects/Whitening_Agent_Black_Box&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.clean_rl_test.executor": "Run",
+    "Python.debug_dataset_handler.executor": "Run",
+    "Python.debug_h5py.executor": "Run",
+    "Python.debug_matplotlib.executor": "Run",
+    "Python.debug_rllib.executor": "Run",
+    "Python.debug_rollout.executor": "Run",
+    "Python.generate_data_from_agent.executor": "Run",
+    "Python.generate_dataset_from_agent.executor": "Run",
+    "Python.generate_latent_space_dataset.executor": "Run",
+    "Python.generate_observation_dataset.executor": "Debug",
+    "Python.latent_space_clustering.executor": "Run",
+    "Python.latent_space_visualization.executor": "Run",
+    "Python.minimal_latent_space.executor": "Run",
+    "Python.ray_dataset.executor": "Run",
+    "Python.training_agent.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/malaarabiou/Programming_Projects/Pycharm_Projects/Whitening_Agent_Black_Box",
+    "run.code.analysis.last.selected.profile": "pProject Default"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/executables" />
@@ -119,6 +110,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="debug_matplotlib" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Whitening_Agent_Black_Box" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/executables/debugs" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/executables/debugs/debug_matplotlib.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="debug_rllib" type="PythonConfigurationType" factoryName="Python">
       <module name="Whitening_Agent_Black_Box" />
       <option name="ENV_FILES" value="" />
@@ -134,28 +147,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/executables/debugs/debug_rllib.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="debug_rollout" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Whitening_Agent_Black_Box" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/executables/debugs" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/executables/debugs/debug_rollout.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -208,6 +199,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="latent_space_clustering" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Whitening_Agent_Black_Box" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/executables/latent_space_clustering.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="latent_space_visualization" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Whitening_Agent_Black_Box" />
       <option name="ENV_FILES" value="" />
@@ -222,28 +235,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/executables/latent_space_visualization.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="ray_dataset" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Whitening_Agent_Black_Box" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/executables/debugs" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/executables/debugs/ray_dataset.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -279,19 +270,19 @@
       <item itemvalue="Python.debug_rllib" />
       <item itemvalue="Python.training_agent" />
       <item itemvalue="Python.debug_dataset_handler" />
+      <item itemvalue="Python.debug_matplotlib" />
+      <item itemvalue="Python.latent_space_clustering" />
       <item itemvalue="Python.latent_space_visualization" />
       <item itemvalue="Python.generate_latent_space_dataset" />
-      <item itemvalue="Python.debug_rollout" />
       <item itemvalue="Python.generate_observation_dataset" />
-      <item itemvalue="Python.ray_dataset" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.latent_space_visualization" />
+        <item itemvalue="Python.latent_space_clustering" />
+        <item itemvalue="Python.debug_matplotlib" />
         <item itemvalue="Python.generate_latent_space_dataset" />
         <item itemvalue="Python.generate_observation_dataset" />
-        <item itemvalue="Python.debug_rollout" />
-        <item itemvalue="Python.ray_dataset" />
       </list>
     </recent_temporary>
   </component>
@@ -319,12 +310,21 @@
       <option name="project" value="LOCAL" />
       <updated>1710842503932</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Initial commit">
+      <option name="closed" value="true" />
+      <created>1710842963039</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1710842963039</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add .gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add .gitignore" />
+    <MESSAGE value="Initial commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -333,6 +333,16 @@
           <url>file://$PROJECT_DIR$/callbacks/latent_space_harvester_callbacks.py</url>
           <line>73</line>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/executables/generate_latent_space_dataset.py</url>
+          <line>42</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/executables/generate_observation_dataset.py</url>
+          <line>50</line>
+          <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

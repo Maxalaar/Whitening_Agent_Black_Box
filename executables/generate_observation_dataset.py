@@ -14,8 +14,6 @@ from utilities.global_include import project_initialisation, datasets_directory,
 @ray.remote
 class ObservationHarvestingWorker:
     def __init__(self, path_policy_storage):
-        self.observations = None
-
         tuner: Tuner = Tuner.restore(path=path_policy_storage, trainable=PPO)
         result_grid = tuner.get_results()
         best_result = result_grid.get_best_result(metric='episode_reward_mean', mode='max')
@@ -27,60 +25,50 @@ class ObservationHarvestingWorker:
         self.environment_configuration = algorithm.config.env_config
 
     def harvest(self):
-        self.observations = []
+        observations = []
+        renderings = []
 
-        for i in range(10):
+        for i in range(1):
+            environment_configuration = self.environment_configuration
+            environment_configuration['render_mode'] = 'rgb_array'
             environment: gym.Env = self.environment_creator(self.environment_configuration)
             observation, _ = environment.reset()
-            self.observations.append(observation)
+            rendering = environment.render()
+            observations.append(observation)
+            renderings.append(rendering)
             terminate = False
 
             while not terminate:
                 action = self.policy.compute_actions(obs_batch=observation, explore=True)[0]
                 observation, _, terminate, _, _ = environment.step(action)
-                self.observations.append(observation)
+                rendering = environment.render()
+                observations.append(observation)
+                renderings.append(rendering)
 
-        post_processed_observations = self.post_processing_observations()
-        self.observations = []
+        observations = np.array(observations)
+        renderings = np.array(renderings)
 
-        return post_processed_observations
-
-    def post_processing_observations(self):
-        post_processed_observations = np.array(self.observations)
-        return post_processed_observations
+        return {'observation': observations, 'rendering': renderings}
 
 
 if __name__ == '__main__':
-    ray.init(local_mode=False)
+    ray.init(local_mode=True)
     project_initialisation()
 
-    workers_number = 4
+    workers_number = 1
 
     dataset_handler = DatasetHandler(datasets_directory, 'observation')
-    policy_storage_directory = os.path.join(rllib_directory, 'PPO_2024-03-15_17-08-53')
-    dataset_handler.load()
+    policy_storage_directory = os.path.join(rllib_directory, 'PPO_2024-03-19_13-46-08')
 
     observation_harvesting_workers = [ObservationHarvestingWorker.remote(policy_storage_directory) for _ in range(workers_number)]
 
     results = ray.get([workers.harvest.remote() for workers in observation_harvesting_workers])
-    results = np.concatenate(results, axis=0)
-    dataset_handler.save({'observations': results})
 
-
-    # model_id = load_model.remote(policy_storage_directory)
-
-    # # Données d'inférence
-    # data = ...
-    #
-    # # Parallélisez l'inférence
-    # results_ids = [perform_inference.remote(ray.get(model_id), data_chunk) for data_chunk in data_chunks]
-    #
-    # # Récupérez les résultats
-    # results = ray.get(results_ids)
-    #
-    # # Traitez les résultats
-    # # ...
-    #
-    # # Arrêtez Ray
+    for key in results[0].keys():
+        values = []
+        for result in results:
+            values.append(result[key])
+        value = np.concatenate(values, axis=0)
+        dataset_handler.save({key: value})
 
     ray.shutdown()

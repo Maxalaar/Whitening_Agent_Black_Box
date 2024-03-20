@@ -11,7 +11,7 @@ if __name__ == '__main__':
 
     algorithm_configuration: AlgorithmConfig = (
         PPOConfig()
-        .environment(env='pong_survivor')
+        .environment(env='CartPole-v1')
         .framework('torch')
         .training(model={'custom_model': 'minimal_latent_space_model'})
     )
@@ -22,7 +22,7 @@ if __name__ == '__main__':
         run_config=air.RunConfig(
             storage_path=rllib_directory,
             stop={
-                'time_total_s': 20,
+                'time_total_s': 60 * 5,
             },
             checkpoint_config=air.CheckpointConfig(
                 num_to_keep=1,

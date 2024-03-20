@@ -1,5 +1,6 @@
-from typing import Dict
+from typing import Dict, List, Union
 import h5py
+import numpy as np
 
 
 class DatasetHandler:
@@ -18,9 +19,23 @@ class DatasetHandler:
                     dataset.resize((dataset.shape[0] + data[key_data].shape[0]), axis=0)
                     dataset[-data[key_data].shape[0]:] = data[key_data]
 
-    def load(self, key_data):
+    def load(self, keys: List[str], number_data: Union[int, None] = None):
         dataset = h5py.File(self.dataset_path)
-        return dataset[key_data]
+
+        if number_data is None:
+            data = {}
+            for key in keys:
+                data[key] = dataset[key]
+            return data
+        else:
+            total_values = dataset[keys[0]].shape[0]
+            random_indices = np.random.choice(total_values, number_data, replace=False)
+            random_indices.sort()
+
+            data = {}
+            for key in keys:
+                data[key] = dataset[key][random_indices]
+            return data
 
     def print_info(self):
         dataset = h5py.File(self.dataset_path)

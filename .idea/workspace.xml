@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d79a488c-ca55-4e22-a705-7a6efe046d96" name="Changes" comment="Utilization with Cartpole">
+    <list default="true" id="d79a488c-ca55-4e22-a705-7a6efe046d96" name="Changes" comment="Simplified visualization file">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/executables/generate_observation_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/executables/generate_observation_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/executables/latent_space_clustering.py" beforeDir="false" afterPath="$PROJECT_DIR$/executables/latent_space_clustering.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/executables/latent_space_visualization.py" beforeDir="false" afterPath="$PROJECT_DIR$/executables/latent_space_visualization.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,7 +51,7 @@
     "Python.generate_data_from_agent.executor": "Run",
     "Python.generate_dataset_from_agent.executor": "Run",
     "Python.generate_latent_space_dataset.executor": "Run",
-    "Python.generate_observation_dataset.executor": "Debug",
+    "Python.generate_observation_dataset.executor": "Run",
     "Python.latent_space_clustering.executor": "Run",
     "Python.latent_space_visualization.executor": "Run",
     "Python.minimal_latent_space.executor": "Run",
@@ -268,9 +270,9 @@
       <list>
         <item itemvalue="Python.latent_space_visualization" />
         <item itemvalue="Python.latent_space_clustering" />
-        <item itemvalue="Python.debug_matplotlib" />
         <item itemvalue="Python.generate_latent_space_dataset" />
         <item itemvalue="Python.generate_observation_dataset" />
+        <item itemvalue="Python.debug_matplotlib" />
       </list>
     </recent_temporary>
   </component>
@@ -314,14 +316,23 @@
       <option name="project" value="LOCAL" />
       <updated>1710926977414</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Simplified visualization file">
+      <option name="closed" value="true" />
+      <created>1710930945808</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1710930945808</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add .gitignore" />
     <MESSAGE value="Initial commit" />
     <MESSAGE value="Utilization with Cartpole" />
-    <option name="LAST_COMMIT_MESSAGE" value="Utilization with Cartpole" />
+    <MESSAGE value="Simplified visualization file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Simplified visualization file" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -330,16 +341,6 @@
           <url>file://$PROJECT_DIR$/callbacks/latent_space_harvester_callbacks.py</url>
           <line>73</line>
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/executables/generate_latent_space_dataset.py</url>
-          <line>42</line>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/executables/generate_observation_dataset.py</url>
-          <line>50</line>
-          <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

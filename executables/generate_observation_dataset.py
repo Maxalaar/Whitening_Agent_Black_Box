@@ -1,6 +1,7 @@
 import os
 
 import numpy as np
+import cv2
 import ray
 from ray.rllib import Policy
 from ray.rllib.algorithms import PPO, Algorithm
@@ -9,6 +10,16 @@ import gymnasium as gym
 
 from utilities.dataset_handler import DatasetHandler
 from utilities.global_include import project_initialisation, datasets_directory, rllib_directory
+
+
+def post_rendering_processing(images):
+    new_width = 246
+    ratio = images.shape[1] / images.shape[0]
+    new_height = int(new_width / ratio)
+    resize_images = cv2.resize(images, (new_width, new_height))
+    gray_images = cv2.cvtColor(resize_images, cv2.COLOR_RGB2GRAY)
+
+    return gray_images
 
 
 @ray.remote
@@ -28,14 +39,14 @@ class ObservationHarvestingWorker:
         observations = []
         renderings = []
 
-        for i in range(1):
+        for i in range(3):
             environment_configuration = self.environment_configuration
             environment_configuration['render_mode'] = 'rgb_array'
             environment: gym.Env = self.environment_creator(self.environment_configuration)
             observation, _ = environment.reset()
             rendering = environment.render()
             observations.append(observation)
-            renderings.append(rendering)
+            renderings.append(post_rendering_processing(rendering))
             terminate = False
 
             while not terminate:
@@ -43,7 +54,7 @@ class ObservationHarvestingWorker:
                 observation, _, terminate, _, _ = environment.step(action)
                 rendering = environment.render()
                 observations.append(observation)
-                renderings.append(rendering)
+                renderings.append(post_rendering_processing(rendering))
 
         observations = np.array(observations)
         renderings = np.array(renderings)
@@ -52,10 +63,10 @@ class ObservationHarvestingWorker:
 
 
 if __name__ == '__main__':
-    ray.init(local_mode=True)
+    ray.init(local_mode=False)
     project_initialisation()
 
-    workers_number = 1
+    workers_number = 4
 
     dataset_handler = DatasetHandler(datasets_directory, 'observation')
     policy_storage_directory = os.path.join(rllib_directory, 'PPO_2024-03-19_13-46-08')

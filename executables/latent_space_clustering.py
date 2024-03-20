@@ -13,7 +13,7 @@ if __name__ == '__main__':
 
     latent_space_data = data['latent_space']
 
-    kmeans_classifier = KMeans(n_clusters=8, n_init=10)
+    kmeans_classifier = KMeans(n_clusters=5, n_init=10)
     kmeans_classifier.fit(latent_space_data)
     kmeans_classifier_handler.save(kmeans_classifier)
     # cluster_assigned_label = kmeans_classifier.predict(latent_space_data)

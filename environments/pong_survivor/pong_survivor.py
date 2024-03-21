@@ -3,8 +3,6 @@ import numpy as np
 
 from typing import TYPE_CHECKING, Any, SupportsFloat, TypeVar
 
-from utilities.dataset_handler import DatasetHandler
-
 if TYPE_CHECKING:
     pass
 

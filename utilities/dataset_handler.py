@@ -2,6 +2,8 @@ from typing import Dict, List, Union
 import h5py
 import numpy as np
 
+from utilities.global_include import create_directory
+
 
 class DatasetHandler:
     def __init__(self, path, name):
@@ -10,6 +12,7 @@ class DatasetHandler:
         self.dataset_path = self.path + '/' + self.name + '.h5'
 
     def save(self, data: Dict):
+        create_directory(self.path)
         with h5py.File(self.dataset_path, 'a') as hf:
             for key_data in data.keys():
                 if key_data not in hf:
@@ -29,8 +32,9 @@ class DatasetHandler:
             return data
         else:
             total_values = dataset[keys[0]].shape[0]
-            random_indices = np.random.choice(total_values, number_data, replace=False)
+            random_indices = np.random.choice(total_values, number_data)    # , replace=False
             random_indices.sort()
+            random_indices = np.unique(random_indices)
 
             data = {}
             for key in keys:

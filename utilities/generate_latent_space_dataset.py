@@ -1,4 +1,3 @@
-import os
 import numpy as np
 import torch
 
@@ -9,15 +8,14 @@ from ray.tune import Tuner
 from ray.rllib.models import ModelV2
 
 from utilities.dataset_handler import DatasetHandler
-from utilities.global_include import project_initialisation, datasets_directory, rllib_directory
 
 
 @ray.remote
 class LatentSpaceHarvestingWorker:
-    def __init__(self, path_policy_storage):
+    def __init__(self, rllib_trial_path):
         self.observations = None
 
-        tuner: Tuner = Tuner.restore(path=path_policy_storage, trainable=PPO)
+        tuner: Tuner = Tuner.restore(path=rllib_trial_path, trainable=PPO)
         result_grid = tuner.get_results()
         best_result = result_grid.get_best_result(metric='episode_reward_mean', mode='max')
         path_checkpoint: str = best_result.best_checkpoints[0][0].path
@@ -30,24 +28,17 @@ class LatentSpaceHarvestingWorker:
         return {'latent_space': self.model.get_latent_space(torch.tensor(observations)), 'action': self.policy.compute_actions(obs_batch=observations, explore=False)[0]}
 
 
-if __name__ == '__main__':
-    ray.init(local_mode=True)
-    project_initialisation()
-
-    workers_number = 4
-
-    policy_storage_directory = os.path.join(rllib_directory, 'PPO_2024-03-19_13-46-08')
+def generate_latent_space_dataset(datasets_directory, rllib_trial_path, workers_number):
+    rllib_trial_path = rllib_trial_path
     observations_dataset_handler = DatasetHandler(datasets_directory, 'observation')
     latent_space_dataset_handler = DatasetHandler(datasets_directory, 'latent_space')
-
-    observations_dataset_handler.print_info()
 
     data = observations_dataset_handler.load(['observation', 'rendering'])
     data_observation = data['observation']
     data_rendering = data['rendering']
 
     data_chunks = np.array_split(data_observation, workers_number)
-    latent_space_harvesting_workers = [LatentSpaceHarvestingWorker.remote(policy_storage_directory) for _ in range(workers_number)]
+    latent_space_harvesting_workers = [LatentSpaceHarvestingWorker.remote(rllib_trial_path) for _ in range(workers_number)]
 
     results = ray.get([latent_space_harvesting_workers[index].harvest.remote(data_chunk) for index, data_chunk in enumerate(data_chunks)])
 
@@ -59,5 +50,3 @@ if __name__ == '__main__':
         latent_space_dataset_handler.save({key: value})
 
     latent_space_dataset_handler.save({'rendering': data_rendering})
-
-    ray.shutdown()

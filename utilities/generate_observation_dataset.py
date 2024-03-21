@@ -1,5 +1,3 @@
-import os
-
 import numpy as np
 import cv2
 import ray
@@ -9,7 +7,6 @@ from ray.tune import Tuner
 import gymnasium as gym
 
 from utilities.dataset_handler import DatasetHandler
-from utilities.global_include import project_initialisation, datasets_directory, rllib_directory
 
 
 def post_rendering_processing(images):
@@ -24,8 +21,8 @@ def post_rendering_processing(images):
 
 @ray.remote
 class ObservationHarvestingWorker:
-    def __init__(self, path_policy_storage):
-        tuner: Tuner = Tuner.restore(path=path_policy_storage, trainable=PPO)
+    def __init__(self, rllib_trial_path):
+        tuner: Tuner = Tuner.restore(path=rllib_trial_path, trainable=PPO)
         result_grid = tuner.get_results()
         best_result = result_grid.get_best_result(metric='episode_reward_mean', mode='max')
         path_checkpoint: str = best_result.best_checkpoints[0][0].path
@@ -39,7 +36,7 @@ class ObservationHarvestingWorker:
         observations = []
         renderings = []
 
-        for i in range(3):
+        for i in range(1):
             environment_configuration = self.environment_configuration
             environment_configuration['render_mode'] = 'rgb_array'
             environment: gym.Env = self.environment_creator(self.environment_configuration)
@@ -62,16 +59,10 @@ class ObservationHarvestingWorker:
         return {'observation': observations, 'rendering': renderings}
 
 
-if __name__ == '__main__':
-    ray.init(local_mode=False)
-    project_initialisation()
-
-    workers_number = 4
-
+def generate_observation_dataset(datasets_directory, rllib_trial_path, workers_number):
     dataset_handler = DatasetHandler(datasets_directory, 'observation')
-    policy_storage_directory = os.path.join(rllib_directory, 'PPO_2024-03-19_13-46-08')
 
-    observation_harvesting_workers = [ObservationHarvestingWorker.remote(policy_storage_directory) for _ in range(workers_number)]
+    observation_harvesting_workers = [ObservationHarvestingWorker.remote(rllib_trial_path) for _ in range(workers_number)]
 
     results = ray.get([workers.harvest.remote() for workers in observation_harvesting_workers])
 
@@ -81,5 +72,3 @@ if __name__ == '__main__':
             values.append(result[key])
         value = np.concatenate(values, axis=0)
         dataset_handler.save({key: value})
-
-    ray.shutdown()

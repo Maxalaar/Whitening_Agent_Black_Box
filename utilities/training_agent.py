@@ -1,25 +1,27 @@
-import ray
+import os
+
 from ray import air, tune
 from ray.rllib.algorithms import AlgorithmConfig
 from ray.rllib.algorithms.ppo import PPOConfig, PPO
 
-from utilities.global_include import rllib_directory, project_initialisation
+from utilities.global_include import delete_directory
 
-if __name__ == '__main__':
-    ray.init()
-    project_initialisation()
+
+def training_agent(rllib_directory, rllib_trial_name, environment_name: str, architecture_name: str):
+    delete_directory(os.path.expanduser('~/ray_results/' + rllib_trial_name))
 
     algorithm_configuration: AlgorithmConfig = (
         PPOConfig()
-        .environment(env='CartPole-v1')
+        .environment(env=environment_name)  # , disable_env_checking=True
         .framework('torch')
-        .training(model={'custom_model': 'minimal_latent_space_model'})
+        .training(model={'custom_model': architecture_name})
     )
 
     tuner = tune.Tuner(
         trainable=PPO,
         param_space=algorithm_configuration,
         run_config=air.RunConfig(
+            name=rllib_trial_name,
             storage_path=rllib_directory,
             stop={
                 'time_total_s': 60 * 5,
@@ -35,5 +37,3 @@ if __name__ == '__main__':
     )
 
     tuner.fit()
-
-    ray.shutdown()

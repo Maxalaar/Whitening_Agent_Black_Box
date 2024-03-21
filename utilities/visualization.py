@@ -4,14 +4,13 @@ import matplotlib
 import matplotlib.pyplot as plt
 
 from utilities.dataset_handler import DatasetHandler
-from utilities.global_include import datasets_directory, sklearn_directory
 from utilities.sklearn_classifier_handler import SklearnClassifierHandler
 
 
 class LatentSpaceVisualisation:
-    def __init__(self, name: str):
+    def __init__(self, datasets_directory):
         self.color_palette = matplotlib.colormaps['tab10']
-        self.latent_space_dataset_handler: DatasetHandler = DatasetHandler(datasets_directory, name)
+        self.latent_space_dataset_handler: DatasetHandler = DatasetHandler(datasets_directory, 'latent_space')
 
         self.latent_space_data = None
         self.action_data = None
@@ -31,8 +30,8 @@ class LatentSpaceVisualisation:
         self.action_data = data['action']
         self.rendering_data = data['rendering']
 
-    def load_kmeans_classifier(self, name):
-        self.kmeans_classifier = SklearnClassifierHandler(sklearn_directory, name).load()
+    def load_kmeans_classifier(self, sklearn_directory):
+        self.kmeans_classifier = SklearnClassifierHandler(sklearn_directory, 'kmeans_classifier').load()
 
     def kmeans_classifier_predict(self):
         self.latent_space_label = self.kmeans_classifier.predict(self.latent_space_data)
@@ -88,13 +87,11 @@ class LatentSpaceVisualisation:
                 ax.imshow(self.cluster_average_rendering[i] / 255.0, cmap='gray')
             ax.axis('off')
 
-        # plt.tight_layout()
 
-
-if __name__ == '__main__':
-    latent_space_visualisation = LatentSpaceVisualisation('latent_space')
-    latent_space_visualisation.load_data(100)
-    latent_space_visualisation.load_kmeans_classifier('kmeans_classifier')
+def visualization(datasets_directory, sklearn_directory):
+    latent_space_visualisation = LatentSpaceVisualisation(datasets_directory)
+    latent_space_visualisation.load_data(1000)
+    latent_space_visualisation.load_kmeans_classifier(sklearn_directory)
     latent_space_visualisation.kmeans_classifier_predict()
     latent_space_visualisation.compute_tsne()
     latent_space_visualisation.compute_average_rendering_cluster()

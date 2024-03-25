@@ -1,6 +1,7 @@
 import os
 import ray
-
+ray.shutdown()
+ray.init(num_cpus=10)
 
 from utilities.global_include import project_initialisation
 from utilities.training_agent import training_agent
@@ -24,7 +25,6 @@ if __name__ == '__main__':
     sklearn_directory = os.path.join(experiment_directory, 'sklearn')
     rllib_trial_path = os.path.join(rllib_directory, rllib_trial_name)
 
-    ray.init(local_mode=True)
     project_initialisation()
 
     training_agent(

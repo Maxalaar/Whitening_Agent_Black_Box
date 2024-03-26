@@ -1,12 +1,11 @@
 import numpy as np
-import cv2
 import ray
-from ray.rllib import Policy
-from ray.rllib.algorithms import PPO, Algorithm
+import cv2
+from ray.rllib.algorithms import PPO, Algorithm, AlgorithmConfig
 from ray.tune import Tuner
 import gymnasium as gym
-
 from utilities.dataset_handler import DatasetHandler
+from utilities.global_include import get_workers
 
 
 def post_rendering_processing(images):
@@ -19,56 +18,111 @@ def post_rendering_processing(images):
     return gray_images
 
 
-@ray.remote
-class ObservationHarvestingWorker:
-    def __init__(self, rllib_trial_path):
-        tuner: Tuner = Tuner.restore(path=rllib_trial_path, trainable=PPO)
-        result_grid = tuner.get_results()
-        best_result = result_grid.get_best_result(metric='episode_reward_mean', mode='max')
-        path_checkpoint: str = best_result.best_checkpoints[0][0].path
-        algorithm: Algorithm = Algorithm.from_checkpoint(path_checkpoint)
+def harvest(policy, number_episode, environment_configuration, environment_creator):
+    observations = []
+    renderings = []
 
-        self.policy: Policy = algorithm.get_policy()
-        self.environment_creator = algorithm.env_creator
-        self.environment_configuration = algorithm.config.env_config
+    for i in range(number_episode):
+        environment_configuration['render_mode'] = 'rgb_array'
+        environment: gym.Env = environment_creator(environment_configuration)
+        observation, _ = environment.reset()
+        rendering = environment.render()
+        observations.append(observation)
+        renderings.append(post_rendering_processing(rendering))
+        terminate = False
 
-    def harvest(self):
-        observations = []
-        renderings = []
-
-        for i in range(1):
-            environment_configuration = self.environment_configuration
-            environment_configuration['render_mode'] = 'rgb_array'
-            environment: gym.Env = self.environment_creator(self.environment_configuration)
-            observation, _ = environment.reset()
+        while not terminate:
+            action = policy.compute_actions(obs_batch=observation, explore=True)[0]
+            observation, _, terminate, _, _ = environment.step(action)
             rendering = environment.render()
             observations.append(observation)
             renderings.append(post_rendering_processing(rendering))
-            terminate = False
 
-            while not terminate:
-                action = self.policy.compute_actions(obs_batch=observation, explore=True)[0]
-                observation, _, terminate, _, _ = environment.step(action)
-                rendering = environment.render()
-                observations.append(observation)
-                renderings.append(post_rendering_processing(rendering))
+    observations = np.array(observations)
+    renderings = np.array(renderings)
 
-        observations = np.array(observations)
-        renderings = np.array(renderings)
-
-        return {'observation': observations, 'rendering': renderings}
+    return {'observation': observations, 'rendering': renderings}
 
 
-def generate_observation_dataset(datasets_directory, rllib_trial_path, workers_number):
+def generate_observation_dataset(datasets_directory, rllib_trial_path, number_iteration, number_episode_per_worker):
+    print('-- Generate observation dataset --')
+    print()
+
     dataset_handler = DatasetHandler(datasets_directory, 'observation')
 
-    observation_harvesting_workers = [ObservationHarvestingWorker.remote(rllib_trial_path) for _ in range(workers_number)]
+    tuner: Tuner = Tuner.restore(path=rllib_trial_path, trainable=PPO)
+    result_grid = tuner.get_results()
+    best_result = result_grid.get_best_result(metric='episode_reward_mean', mode='max')
+    path_checkpoint: str = best_result.best_checkpoints[0][0].path
+    algorithm: Algorithm = Algorithm.from_checkpoint(path_checkpoint)
 
-    results = ray.get([workers.harvest.remote() for workers in observation_harvesting_workers])
+    environment_creator = algorithm.env_creator
+    environment_configuration = algorithm.config.env_config
 
-    for key in results[0].keys():
-        values = []
-        for result in results:
-            values.append(result[key])
-        value = np.concatenate(values, axis=0)
-        dataset_handler.save({key: value})
+    workers = [worker for worker in get_workers(algorithm.workers)]
+
+    for i in range(number_iteration):
+        results = ray.get([worker.for_policy.remote(func=harvest, number_episode=number_episode_per_worker, environment_configuration=environment_configuration, environment_creator=environment_creator) for index, worker in enumerate(workers)])
+
+        for key in results[0].keys():
+            values = []
+            for result in results:
+                values.append(result[key])
+            value = np.concatenate(values, axis=0)
+            dataset_handler.save({key: value})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    #
+    #
+    # def harvest(policy, policy_id):
+    #     observations = []
+    #     renderings = []
+    #
+    #     for i in range(number_episode_per_worker):
+    #         environment_configuration['render_mode'] = 'rgb_array'
+    #         environment: gym.Env = environment_creator(environment_configuration)
+    #         observation, _ = environment.reset()
+    #         rendering = environment.render()
+    #         observations.append(observation)
+    #         renderings.append(post_rendering_processing(rendering))
+    #         terminate = False
+    #
+    #         while not terminate:
+    #             action = policy.compute_actions(obs_batch=observation, explore=True)[0]
+    #             observation, _, terminate, _, _ = environment.step(action)
+    #             rendering = environment.render()
+    #             observations.append(observation)
+    #             renderings.append(post_rendering_processing(rendering))
+    #
+    #     observations = np.array(observations)
+    #     renderings = np.array(renderings)
+    #
+    #     return {'observation': observations, 'rendering': renderings}
+    #
+    # algorithm.workers._local_worker = None
+    #
+    # for _ in range(number_iteration):
+    #     results = algorithm.workers.foreach_policy(harvest)
+    #
+    #     for key in results[0].keys():
+    #         values = []
+    #         for result in results:
+    #             values.append(result[key])
+    #         value = np.concatenate(values, axis=0)
+    #         dataset_handler.save({key: value})

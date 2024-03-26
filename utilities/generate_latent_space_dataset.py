@@ -2,34 +2,24 @@ import numpy as np
 import torch
 
 import ray
-from ray.rllib import Policy
 from ray.rllib.algorithms import PPO, Algorithm
 from ray.tune import Tuner
-from ray.rllib.models import ModelV2
 
 from utilities.dataset_handler import DatasetHandler
+from utilities.global_include import get_workers
 
 
-@ray.remote
-class LatentSpaceHarvestingWorker:
-    def __init__(self, rllib_trial_path):
-        self.observations = None
-
-        tuner: Tuner = Tuner.restore(path=rllib_trial_path, trainable=PPO)
-        result_grid = tuner.get_results()
-        best_result = result_grid.get_best_result(metric='episode_reward_mean', mode='max')
-        path_checkpoint: str = best_result.best_checkpoints[0][0].path
-        algorithm: Algorithm = Algorithm.from_checkpoint(path_checkpoint)
-
-        self.policy: Policy = algorithm.get_policy()
-        self.model: ModelV2 = self.policy.model
-
-    def harvest(self, observations):
-        return {'latent_space': self.model.get_latent_space(torch.tensor(observations)), 'action': self.policy.compute_actions(obs_batch=observations, explore=False)[0]}
+def harvest(policy, observations):
+    return {
+        'latent_space': policy.model.get_latent_space(torch.tensor(observations).to(policy.device)),
+        'action': policy.compute_actions(obs_batch=observations, explore=False)[0],
+    }
 
 
-def generate_latent_space_dataset(datasets_directory, rllib_trial_path, workers_number):
-    rllib_trial_path = rllib_trial_path
+def generate_latent_space_dataset(datasets_directory, rllib_trial_path):
+    print('-- Generate latent space dataset --')
+    print()
+
     observations_dataset_handler = DatasetHandler(datasets_directory, 'observation')
     latent_space_dataset_handler = DatasetHandler(datasets_directory, 'latent_space')
 
@@ -37,10 +27,15 @@ def generate_latent_space_dataset(datasets_directory, rllib_trial_path, workers_
     data_observation = data['observation']
     data_rendering = data['rendering']
 
-    data_chunks = np.array_split(data_observation, workers_number)
-    latent_space_harvesting_workers = [LatentSpaceHarvestingWorker.remote(rllib_trial_path) for _ in range(workers_number)]
+    tuner: Tuner = Tuner.restore(path=rllib_trial_path, trainable=PPO)
+    result_grid = tuner.get_results()
+    best_result = result_grid.get_best_result(metric='episode_reward_mean', mode='max')
+    path_checkpoint: str = best_result.best_checkpoints[0][0].path
+    algorithm: Algorithm = Algorithm.from_checkpoint(path_checkpoint)
 
-    results = ray.get([latent_space_harvesting_workers[index].harvest.remote(data_chunk) for index, data_chunk in enumerate(data_chunks)])
+    data_chunks = np.array_split(data_observation, algorithm.workers.num_remote_workers())
+    workers = [worker for worker in get_workers(algorithm.workers)]
+    results = ray.get([worker.for_policy.remote(func=harvest, observations=data_chunks[index]) for index, worker in enumerate(workers)])
 
     for key in results[0].keys():
         values = []

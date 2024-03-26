@@ -32,3 +32,8 @@ def project_initialisation():
     environment_information()
     register_environments()
     register_architectures()
+
+
+def get_workers(workers):
+    worker_manager = getattr(workers, '_WorkerSet__worker_manager')
+    return list(worker_manager.actors().values())

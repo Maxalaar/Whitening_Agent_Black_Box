@@ -1,27 +1,40 @@
+import gymnasium
 import ray
+from ray.tune import register_env
 from ray.rllib.algorithms.ppo import PPOConfig
 
-import architectures.register_model
-from environments.pong_survivor.pong_survivor import PongSurvivor
+if __name__ == '__main__':
+    ray.init(num_cpus=5)
 
-ray.init(local_mode=True)
+    config = (  # 1. Configure the algorithm,
+        PPOConfig()
+        .environment("Taxi-v3")
+        .rollouts(
+            num_rollout_workers=4,
+            remote_worker_envs=True,
+            num_envs_per_worker=2,
+        )
+        .resources(
+            num_learner_workers=2,
+            num_cpus_per_worker=1,
+            num_cpus_for_local_worker=1,
+            num_cpus_per_learner_worker=1,
+            num_gpus=0,
+            num_gpus_per_worker=0,
+            num_gpus_per_learner_worker=0,
+        )
+        .evaluation(evaluation_num_workers=1)
+        .framework("torch")
+        .training(
+            model={"fcnet_hiddens": [64, 64]},
+            train_batch_size=512*10,
+            sgd_minibatch_size=64*10,
+        )
+    )
 
-config = (  # 1. Configure the algorithm,
-    PPOConfig()
-    .environment(env=PongSurvivor)
-    .rollouts(num_rollout_workers=2)
-    .resources(num_gpus=1)
-    .framework('torch')
-    .training(model={'custom_model': 'minimal_latent_space_model'})
-    .evaluation(evaluation_num_workers=1)
-)
+    algo = config.build()  # 2. build the algorithm,
 
-algo = config.build()  # 2. build the algorithm,
+    for _ in range(5):
+        print(algo.train())  # 3. train it,
 
-for _ in range(5):
-    print(algo.train())  # 3. train it,
-
-algo.evaluate()  # 4. and evaluate it.
-algo.save('./results/agent/')
-
-ray.shutdown()
+    algo.evaluate()  # 4. and evaluate it.

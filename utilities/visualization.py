@@ -30,8 +30,8 @@ class LatentSpaceVisualisation:
         self.action_data = data['action']
         self.rendering_data = data['rendering']
 
-    def load_kmeans_classifier(self, sklearn_directory):
-        self.kmeans_classifier = SklearnClassifierHandler(sklearn_directory, 'kmeans_classifier').load()
+    def load_sklearn_classifier(self, sklearn_directory, name):
+        self.kmeans_classifier = SklearnClassifierHandler(sklearn_directory, name).load()
 
     def kmeans_classifier_predict(self):
         self.latent_space_label = self.kmeans_classifier.predict(self.latent_space_data)
@@ -90,8 +90,8 @@ class LatentSpaceVisualisation:
 
 def visualization(datasets_directory, sklearn_directory):
     latent_space_visualisation = LatentSpaceVisualisation(datasets_directory)
-    latent_space_visualisation.load_data(1000)
-    latent_space_visualisation.load_kmeans_classifier(sklearn_directory)
+    latent_space_visualisation.load_data(2000)
+    latent_space_visualisation.load_sklearn_classifier(sklearn_directory, 'kmeans_classifier')  # 'kmeans_classifier'
     latent_space_visualisation.kmeans_classifier_predict()
     latent_space_visualisation.compute_tsne()
     latent_space_visualisation.compute_average_rendering_cluster()

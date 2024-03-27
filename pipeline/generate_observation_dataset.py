@@ -30,10 +30,11 @@ def harvest(policy, number_episode, environment_configuration, environment_creat
         observations.append(observation)
         renderings.append(post_rendering_processing(rendering))
         terminate = False
+        truncated = False
 
-        while not terminate:
+        while not terminate and not truncated:
             action = policy.compute_actions(obs_batch=observation, explore=True)[0]
-            observation, _, terminate, _, _ = environment.step(action)
+            observation, _, terminate, truncated, _ = environment.step(action)
             rendering = environment.render()
             observations.append(observation)
             renderings.append(post_rendering_processing(rendering))
@@ -71,58 +72,4 @@ def generate_observation_dataset(datasets_directory, rllib_trial_path, number_it
             value = np.concatenate(values, axis=0)
             dataset_handler.save({key: value})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    #
-    #
-    # def harvest(policy, policy_id):
-    #     observations = []
-    #     renderings = []
-    #
-    #     for i in range(number_episode_per_worker):
-    #         environment_configuration['render_mode'] = 'rgb_array'
-    #         environment: gym.Env = environment_creator(environment_configuration)
-    #         observation, _ = environment.reset()
-    #         rendering = environment.render()
-    #         observations.append(observation)
-    #         renderings.append(post_rendering_processing(rendering))
-    #         terminate = False
-    #
-    #         while not terminate:
-    #             action = policy.compute_actions(obs_batch=observation, explore=True)[0]
-    #             observation, _, terminate, _, _ = environment.step(action)
-    #             rendering = environment.render()
-    #             observations.append(observation)
-    #             renderings.append(post_rendering_processing(rendering))
-    #
-    #     observations = np.array(observations)
-    #     renderings = np.array(renderings)
-    #
-    #     return {'observation': observations, 'rendering': renderings}
-    #
-    # algorithm.workers._local_worker = None
-    #
-    # for _ in range(number_iteration):
-    #     results = algorithm.workers.foreach_policy(harvest)
-    #
-    #     for key in results[0].keys():
-    #         values = []
-    #         for result in results:
-    #             values.append(result[key])
-    #         value = np.concatenate(values, axis=0)
-    #         dataset_handler.save({key: value})
+        del results

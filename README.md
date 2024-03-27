@@ -17,12 +17,15 @@ This guide explains how to set up a Conda environment for working with Ray RLlib
    conda activate Whitening_Agent_Black_Box
    conda install nvidia::cuda
    conda install anaconda::cudatoolkit
-   conda install -c conda-forge "ray[rllib]"
+   conda install -c conda-forge "ray-default"
    conda install pytorch::pytorch
    conda install conda-forge::opencv
    conda install anaconda::scikit-learn
    conda install conda-forge::matplotlib
+   # conda install conda-forge::pyspark
+   # conda install -c conda-forge dask-ml
    pip install gymnasium[classic-control]
    pip install h5py
+   conda install -c conda-forge "ray[rllib]"
    ```
    

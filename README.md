@@ -22,9 +22,10 @@ This guide explains how to set up a Conda environment for working with Ray RLlib
    conda install conda-forge::opencv
    conda install anaconda::scikit-learn
    conda install conda-forge::matplotlib
-   # conda install conda-forge::pyspark
-   # conda install -c conda-forge dask-ml
+   pip install gymnasium
    pip install gymnasium[classic-control]
+   pip install swig
+   pip install gymnasium[box2d]
    pip install h5py
    conda install -c conda-forge "ray[rllib]"
    ```

@@ -21,11 +21,11 @@ def generate_latent_space_dataset(datasets_directory, rllib_trial_path):
     print()
 
     observations_dataset_handler = DatasetHandler(datasets_directory, 'observation')
+    observations_dataset_handler.print_info()
     latent_space_dataset_handler = DatasetHandler(datasets_directory, 'latent_space')
 
     data = observations_dataset_handler.load(['observation', 'rendering'])
     data_observation = data['observation']
-    data_rendering = data['rendering']
 
     tuner: Tuner = Tuner.restore(path=rllib_trial_path, trainable=PPO)
     result_grid = tuner.get_results()
@@ -44,4 +44,11 @@ def generate_latent_space_dataset(datasets_directory, rllib_trial_path):
         value = np.concatenate(values, axis=0)
         latent_space_dataset_handler.save({key: value})
 
-    latent_space_dataset_handler.save({'rendering': data_rendering})
+    i = 0
+    chunk_size = 30_000
+    dataset_size = observations_dataset_handler.size('rendering')
+    while i < dataset_size:
+        chunk = observations_dataset_handler.load_index(keys=['rendering'], start_index=i, stop_index=min(i+chunk_size, dataset_size))
+        chunk = chunk['rendering']
+        latent_space_dataset_handler.save({'rendering': chunk})
+        i = i+chunk_size

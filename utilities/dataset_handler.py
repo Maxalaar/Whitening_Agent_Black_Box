@@ -41,6 +41,13 @@ class DatasetHandler:
                 data[key] = dataset[key][random_indices]
             return data
 
+    def load_index(self, keys: List[str], start_index: int, stop_index):
+        dataset = h5py.File(self.dataset_path)
+        data = {}
+        for key in keys:
+            data[key] = dataset[key][start_index:stop_index]
+        return data
+
     def print_info(self):
         dataset = h5py.File(self.dataset_path)
         print('dataset name: ' + self.name)
@@ -50,3 +57,7 @@ class DatasetHandler:
             print(' ' + subgroups_name + ':')
             print('  number data: ' + str(dataset[subgroups_name].shape[0]))
             print('  shape data: ' + str(dataset[subgroups_name].shape[1:]))
+
+    def size(self, key: str):
+        dataset = h5py.File(self.dataset_path)
+        return dataset[key].shape[0]

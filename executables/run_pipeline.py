@@ -12,7 +12,7 @@ from pipeline.visualization import visualization
 if __name__ == '__main__':
     experiment_name = 'debug_experiment'
     rllib_trial_name = 'rllib_base_trial'
-    environment_name = 'LunarLander-v2'     # 'CartPole-v1'
+    environment_name = 'PongSurvivor'     # 'CartPole-v1'
     architecture_name = 'minimal_latent_space_model'
 
     execution_directory = os.getcwd()

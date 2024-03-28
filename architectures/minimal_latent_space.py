@@ -21,7 +21,7 @@ class MinimalLatentSpaceModel(TorchModelV2, nn.Module):
         self.value_function_layer = nn.Linear(self.latent_space_size, 1)
 
     def forward(self, input_dict, state, seq_lens):
-        self.input = input_dict['obs']
+        self.input = input_dict['obs_flat']
         self.latent_space = self.latent_space_layer(self.input)
 
         action = self.action_layer(self.latent_space)

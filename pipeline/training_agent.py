@@ -12,7 +12,7 @@ def training_agent(rllib_directory, rllib_trial_name, environment_name: str, arc
 
     algorithm_configuration: AlgorithmConfig = (
         PPOConfig()
-        .environment(env=environment_name)  # , disable_env_checking=True
+        .environment(env=environment_name)
         .framework('torch')
         .training(model={'custom_model': architecture_name})
         .rollouts(num_rollout_workers=6, create_env_on_local_worker=False)

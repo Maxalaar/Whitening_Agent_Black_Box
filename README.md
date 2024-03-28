@@ -23,6 +23,7 @@ This guide explains how to set up a Conda environment for working with Ray RLlib
    conda install anaconda::scikit-learn
    conda install conda-forge::matplotlib
    pip install gymnasium
+   pip install gymnasium[all]
    pip install gymnasium[classic-control]
    pip install swig
    pip install gymnasium[box2d]

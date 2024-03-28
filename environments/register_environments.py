@@ -4,4 +4,4 @@ from environments.pong_survivor.pong_survivor import PongSurvivor
 
 
 def register_environments():
-    register_env(name='pong_survivor', env_creator=PongSurvivor)
+    register_env(name='PongSurvivor', env_creator=PongSurvivor)

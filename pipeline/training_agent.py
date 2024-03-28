@@ -7,14 +7,14 @@ from ray.rllib.algorithms.ppo import PPOConfig, PPO
 from utilities.global_include import delete_directory
 
 
-def training_agent(rllib_directory, rllib_trial_name, environment_name: str, architecture_name: str):
+def training_agent(rllib_directory, rllib_trial_name, environment_name: str, environment_configration: dict, architecture_name: str):
     delete_directory(os.path.expanduser('~/ray_results/' + rllib_trial_name))
 
     algorithm_configuration: AlgorithmConfig = (
         PPOConfig()
-        .environment(env=environment_name)
+        .environment(env=environment_name, env_config=environment_configration)
         .framework('torch')
-        .training(model={'custom_model': architecture_name})
+        # .training(model={'custom_model': architecture_name})
         .rollouts(num_rollout_workers=6, create_env_on_local_worker=False)
         .resources(num_learner_workers=2, num_gpus=1, num_cpus_per_worker=1, num_gpus_per_worker=0, num_gpus_per_learner_worker=0.5)
         .evaluation(evaluation_num_workers=1)

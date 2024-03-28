@@ -6,13 +6,14 @@ from environments.pong_survivor.pong_survivor import PongSurvivor
 if __name__ == '__main__':
     pygame.init()
 
-    pong_survivor = PongSurvivor(environment_configuration={'render_mode': 'human'})
+    pong_survivor = PongSurvivor(environment_configuration={'render_mode': 'human', 'frame_skip': 10})
 
     running_episodes = True
     while running_episodes:
         pong_survivor.reset()
         running_episode = True
         action = 0
+        total_reward = 0
         while running_episode:
             for event in pygame.event.get():
                 touches = pygame.key.get_pressed()
@@ -27,8 +28,9 @@ if __name__ == '__main__':
                     running_episodes = False
 
             observation, reward, terminated, truncated, info = pong_survivor.step(action)
-            pong_survivor.render()
+            total_reward += reward
 
             if terminated or truncated:
                 running_episode = False
+                print('reward : ' + str(total_reward))
 

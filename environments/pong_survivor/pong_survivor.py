@@ -24,9 +24,10 @@ class PongSurvivor(gym.Env):
         self.paddles = []
 
         self.time_step: float = 0.02
-        self.max_time: float = 50
+        self.max_time: float = environment_configuration.get('max_time', 50)
         self.spec = EnvSpec('PongSurvivor')
-        self.spec.max_episode_steps = int(self.max_time / self.time_step)
+        self.frame_skip = environment_configuration.get('frame_skip', 0)
+        self.spec.max_episode_steps = int(self.max_time / (self.time_step * (self.frame_skip+1)))
 
         self.play_area: np.ndarray = np.array([100, 100])
 
@@ -63,15 +64,21 @@ class PongSurvivor(gym.Env):
     def step(self, action):
         self._current_time_steps += 1
 
-        for ball in self.balls:
-            ball.move(self.time_step)
+        frame_current_number = 0
+        while not self.terminated and not self.truncated and frame_current_number <= self.frame_skip:
+            frame_current_number += 1
+            for ball in self.balls:
+                ball.move(self.time_step)
 
-        self.paddles[0].move(action, self.time_step)
+            self.paddles[0].move(action, self.time_step)
 
-        if self._current_time_steps > self.spec.max_episode_steps:
-            self.terminated = True
+            if self._current_time_steps > self.spec.max_episode_steps:
+                self.terminated = True
 
-        return self._get_observation(), 1.0/self.spec.max_episode_steps, self.terminated, self.truncated, {}
+            if self.render_mode is not None:
+                self.render()
+
+        return self._get_observation(), 1.0 / (self.spec.max_episode_steps+1), self.terminated, self.truncated, {}
 
     def render(self):
         if self.render_environment is None:
@@ -100,4 +107,3 @@ class PongSurvivor(gym.Env):
             observation[paddle.id] = paddle.observation()
 
         return observation
-

@@ -13,6 +13,7 @@ if __name__ == '__main__':
     experiment_name = 'debug_experiment'
     rllib_trial_name = 'rllib_base_trial'
     environment_name = 'PongSurvivor'     # 'CartPole-v1'
+    environment_configration = {'frame_skip': 10}
     architecture_name = 'minimal_latent_space_model'
 
     execution_directory = os.getcwd()
@@ -31,6 +32,7 @@ if __name__ == '__main__':
         rllib_directory=rllib_directory,
         rllib_trial_name=rllib_trial_name,
         environment_name=environment_name,
+        environment_configration=environment_configration,
         architecture_name=architecture_name,
     )
 

@@ -1,3 +1,4 @@
+import gymnasium
 import numpy as np
 import ray
 import cv2
@@ -6,6 +7,7 @@ from ray.tune import Tuner
 import gymnasium as gym
 from utilities.dataset_handler import DatasetHandler
 from utilities.global_include import get_workers
+import torch
 
 
 def post_rendering_processing(images):
@@ -26,6 +28,7 @@ def harvest(policy, number_episode, environment_configuration, environment_creat
         environment_configuration['render_mode'] = 'rgb_array'
         environment: gym.Env = environment_creator(environment_configuration)
         observation, _ = environment.reset()
+        observation = gymnasium.spaces.utils.flatten(environment.observation_space, observation)
         rendering = environment.render()
         observations.append(observation)
         renderings.append(post_rendering_processing(rendering))
@@ -33,8 +36,9 @@ def harvest(policy, number_episode, environment_configuration, environment_creat
         truncated = False
 
         while not terminate and not truncated:
-            action = policy.compute_actions(obs_batch=observation, explore=True)[0]
+            action = policy.compute_actions(obs_batch=torch.tensor(np.array([observation])), explore=True)[0]
             observation, _, terminate, truncated, _ = environment.step(action)
+            observation = gymnasium.spaces.utils.flatten(environment.observation_space, observation)
             rendering = environment.render()
             observations.append(observation)
             renderings.append(post_rendering_processing(rendering))

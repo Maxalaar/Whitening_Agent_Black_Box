@@ -36,7 +36,7 @@ class PongSurvivor(gym.Env):
         for i in range(environment_configuration.get('number_paddle', 1)):
             self.paddles.append(Paddle(self, i))
 
-        self.action_space = gym.spaces.Discrete(2)
+        self.action_space = gym.spaces.Discrete(3)
         self.observation_space = self._get_observation_space()
 
         self.render_mode = environment_configuration.get('render_mode', None)

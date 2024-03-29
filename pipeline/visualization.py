@@ -96,7 +96,7 @@ class LatentSpaceVisualisation:
 def visualization(datasets_directory, sklearn_directory):
     latent_space_visualisation = LatentSpaceVisualisation(datasets_directory)
     latent_space_visualisation.load_data(2000)
-    latent_space_visualisation.load_sklearn_classifier(sklearn_directory, 'kmeans_classifier')  # 'kmeans_classifier' 'hdbscan_classifier'
+    latent_space_visualisation.load_sklearn_classifier(sklearn_directory, 'dbscan_classifier')  # 'kmeans_classifier' 'dbscan_classifier'
     latent_space_visualisation.kmeans_classifier_predict()
     latent_space_visualisation.compute_tsne()
     latent_space_visualisation.compute_average_rendering_cluster()

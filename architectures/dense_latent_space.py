@@ -10,7 +10,7 @@ class DenseLatentSpaceModel(TorchModelV2, nn.Module):
     def __init__(self, observation_space, action_space, num_outputs, model_config, name):
         TorchModelV2.__init__(self, observation_space, action_space, num_outputs, model_config, name)
         nn.Module.__init__(self)
-        self.size_layers = 32
+        self.size_layers = 64
 
         self.flatten_observation = None
         self.latent_space = None

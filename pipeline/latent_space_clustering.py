@@ -44,7 +44,7 @@ def latent_space_clustering(datasets_directory, sklearn_directory):
 
     latent_space_dataset_handler: DatasetHandler = DatasetHandler(datasets_directory, 'latent_space')
     kmeans_classifier_handler = SklearnClassifierHandler(sklearn_directory, 'kmeans_classifier')
-    hdbscan_classifier_handler = SklearnClassifierHandler(sklearn_directory, 'hdbscan_classifier')
+    dbscan_classifier_handler = SklearnClassifierHandler(sklearn_directory, 'dbscan_classifier')
     gaussian_mixture_handler = SklearnClassifierHandler(sklearn_directory, 'gaussian_mixture_classifier')
 
     latent_space_dataset_handler.print_info()
@@ -52,14 +52,14 @@ def latent_space_clustering(datasets_directory, sklearn_directory):
 
     latent_space_data = data['latent_space']
 
-    kmeans_classifier = KMeans(n_clusters=4, n_init=10)
-    kmeans_classifier.fit(latent_space_data)
-    kmeans_classifier_handler.save(kmeans_classifier)
+    # kmeans_classifier = KMeans(n_clusters=4, n_init=10)
+    # kmeans_classifier.fit(latent_space_data)
+    # kmeans_classifier_handler.save(kmeans_classifier)
 
-    # data_dbscan = latent_space_data[:10_000]
-    # dbscan_classifier = DBSCAN(eps=0.4, n_jobs=-1)
-    # dbscan_classifier.fit(data_dbscan)
-    # hdbscan_classifier_handler.save(dbscan_classifier)
+    data_dbscan = latent_space_data
+    dbscan_classifier = DBSCAN(eps=0.4, n_jobs=-1)   # eps=0.4,
+    dbscan_classifier.fit(data_dbscan)
+    dbscan_classifier_handler.save(dbscan_classifier)
 
     # gaussian_mixture_classifier = GaussianMixture(n_components=3)
     # gaussian_mixture_classifier.fit(latent_space_data)

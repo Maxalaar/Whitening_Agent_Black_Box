@@ -10,7 +10,7 @@ from pipeline.visualization import visualization
 
 
 if __name__ == '__main__':
-    experiment_name = 'debug_experiment'
+    experiment_name = 'pong_experiment'
     rllib_trial_name = 'rllib_base_trial'
     environment_name = 'PongSurvivor'     # 'CartPole-v1'
     environment_configration = {'frame_skip': 10}
@@ -25,28 +25,28 @@ if __name__ == '__main__':
     rllib_trial_path = os.path.join(rllib_directory, rllib_trial_name)
 
     ray.shutdown()
-    ray.init(local_mode=False, num_cpus=10, num_gpus=1)
+    ray.init(local_mode=False)
     project_initialisation()
 
-    training_agent(
-        rllib_directory=rllib_directory,
-        rllib_trial_name=rllib_trial_name,
-        environment_name=environment_name,
-        environment_configration=environment_configration,
-        architecture_name=architecture_name,
-    )
+    # training_agent(
+    #     rllib_directory=rllib_directory,
+    #     rllib_trial_name=rllib_trial_name,
+    #     environment_name=environment_name,
+    #     environment_configration=environment_configration,
+    #     architecture_name=architecture_name,
+    # )
 
-    generate_observation_dataset(
-        datasets_directory=datasets_directory,
-        rllib_trial_path=rllib_trial_path,
-        number_iteration=50,
-        number_episode_per_worker=2,
-    )
-
-    generate_latent_space_dataset(
-        datasets_directory=datasets_directory,
-        rllib_trial_path=rllib_trial_path,
-    )
+    # generate_observation_dataset(
+    #     datasets_directory=datasets_directory,
+    #     rllib_trial_path=rllib_trial_path,
+    #     number_iteration=50,
+    #     number_episode_per_worker=2,
+    # )
+    #
+    # generate_latent_space_dataset(
+    #     datasets_directory=datasets_directory,
+    #     rllib_trial_path=rllib_trial_path,
+    # )
 
     latent_space_clustering(
         datasets_directory=datasets_directory,

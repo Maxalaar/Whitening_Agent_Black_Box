@@ -24,6 +24,7 @@ if __name__ == '__main__':
     video_directory = os.path.join(experiment_directory, 'video')
     datasets_directory = os.path.join(experiment_directory, 'datasets')
     sklearn_directory = os.path.join(experiment_directory, 'sklearn')
+    visualization_directory = os.path.join(experiment_directory, 'visualization')
     rllib_trial_path = os.path.join(rllib_directory, rllib_trial_name)
 
     ray.shutdown()
@@ -61,7 +62,13 @@ if __name__ == '__main__':
     #     sklearn_directory=sklearn_directory,
     # )
     #
+    # visualization(
+    #     datasets_directory=datasets_directory,
+    #     sklearn_directory=sklearn_directory,
+    # )
+
     visualization(
+        visualization_directory=visualization_directory,
         datasets_directory=datasets_directory,
         sklearn_directory=sklearn_directory,
     )

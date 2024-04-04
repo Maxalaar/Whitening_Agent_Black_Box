@@ -5,7 +5,7 @@ import cv2
 from ray.rllib.algorithms import PPO, Algorithm
 from ray.tune import Tuner
 import gymnasium as gym
-from utilities.global_include import get_workers, create_directory
+from utilities.global_include import get_workers, create_directory, delete_directory
 import torch
 
 
@@ -72,6 +72,7 @@ def worker_generate_videos(policy, worker_index, number_video, environment_confi
 def generate_videos(video_directory, rllib_trial_path, number_video_per_worker):
     print('-- Generate videos --')
     print()
+    delete_directory(video_directory)
     create_directory(video_directory)
     tuner: Tuner = Tuner.restore(path=rllib_trial_path, trainable=PPO)
     result_grid = tuner.get_results()

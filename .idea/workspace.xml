@@ -4,15 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d79a488c-ca55-4e22-a705-7a6efe046d96" name="Changes" comment="DEBUG : Pong Environment">
-      <change afterPath="$PROJECT_DIR$/pipeline/generate_videos.py" afterDir="false" />
+    <list default="true" id="d79a488c-ca55-4e22-a705-7a6efe046d96" name="Changes" comment="ADD : videos, arrows in rendering, MeanShift cluster">
+      <change afterPath="$PROJECT_DIR$/executables/debugs/debug_bokeh.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executables/debugs/debug_bokeh_v2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executables/debugs/debug_matplotlib_v2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executables/debugs/debug_plotly.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executables/debugs/snake.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executables/debugs/snake4_TheRevenge.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pipeline/visualization_old.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/environments/pong_survivor/pong_survivor.py" beforeDir="false" afterPath="$PROJECT_DIR$/environments/pong_survivor/pong_survivor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/environments/pong_survivor/render.py" beforeDir="false" afterPath="$PROJECT_DIR$/environments/pong_survivor/render.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executables/debugs/debug_pong_survivor.py" beforeDir="false" afterPath="$PROJECT_DIR$/executables/debugs/debug_pong_survivor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/executables/run_pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/executables/run_pipeline.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pipeline/latent_space_clustering.py" beforeDir="false" afterPath="$PROJECT_DIR$/pipeline/latent_space_clustering.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pipeline/training_agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/pipeline/training_agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pipeline/generate_videos.py" beforeDir="false" afterPath="$PROJECT_DIR$/pipeline/generate_videos.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pipeline/visualization.py" beforeDir="false" afterPath="$PROJECT_DIR$/pipeline/visualization.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,12 +51,16 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Python.clean_rl_test.executor": "Run",
+    "Python.debug_bokeh.executor": "Run",
+    "Python.debug_bokeh_v2.executor": "Run",
     "Python.debug_dataset_handler.executor": "Run",
     "Python.debug_dbscan.executor": "Run",
     "Python.debug_h5py.executor": "Run",
     "Python.debug_inference_rllib.executor": "Debug",
     "Python.debug_mass_clustering.executor": "Run",
     "Python.debug_matplotlib.executor": "Run",
+    "Python.debug_matplotlib_v2.executor": "Run",
+    "Python.debug_plotly.executor": "Run",
     "Python.debug_pong_survivor.executor": "Run",
     "Python.debug_prov.executor": "Run",
     "Python.debug_pygame.executor": "Run",
@@ -78,12 +85,15 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/malaarabiou/Programming_Projects/Pycharm_Projects/Car_Accident",
+    "last_opened_file_path": "/home/malaarabiou/Programming_Projects/Pycharm_Projects/Whitening_Agent_Black_Box/executables/debugs",
     "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/executables/debugs" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/environments/pong_survivor" />
       <recent name="$PROJECT_DIR$" />
@@ -99,6 +109,50 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.run_pipeline">
+    <configuration name="debug_bokeh" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Whitening_Agent_Black_Box" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/executables/debugs" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/executables/debugs/debug_bokeh.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="debug_bokeh_v2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Whitening_Agent_Black_Box" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/executables/debugs" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/executables/debugs/debug_bokeh_v2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="debug_dataset_handler" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Whitening_Agent_Black_Box" />
       <option name="ENV_FILES" value="" />
@@ -122,7 +176,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="debug_dbscan" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="debug_plotly" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Whitening_Agent_Black_Box" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -135,29 +189,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/executables/debugs/debug_dbscan.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="debug_mass_clustering" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Whitening_Agent_Black_Box" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/executables/debugs" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/executables/debugs/debug_mass_clustering.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/executables/debugs/debug_plotly.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -180,28 +212,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/executables/debugs/debug_pong_survivor.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="debug_pygame" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Whitening_Agent_Black_Box" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/executables/debugs" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/executables/debugs/debug_pygame.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -304,19 +314,19 @@
       <item itemvalue="Python.debug_rllib" />
       <item itemvalue="Python.debug_tuner" />
       <item itemvalue="Python.training_agent" />
+      <item itemvalue="Python.debug_bokeh" />
+      <item itemvalue="Python.debug_bokeh_v2" />
+      <item itemvalue="Python.debug_plotly" />
       <item itemvalue="Python.debug_pong_survivor" />
-      <item itemvalue="Python.debug_pygame" />
-      <item itemvalue="Python.debug_dbscan" />
-      <item itemvalue="Python.debug_mass_clustering" />
       <item itemvalue="Python.run_pipeline" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.run_pipeline" />
+        <item itemvalue="Python.debug_bokeh_v2" />
+        <item itemvalue="Python.debug_plotly" />
+        <item itemvalue="Python.debug_bokeh" />
         <item itemvalue="Python.debug_pong_survivor" />
-        <item itemvalue="Python.debug_pygame" />
-        <item itemvalue="Python.debug_mass_clustering" />
-        <item itemvalue="Python.debug_dbscan" />
       </list>
     </recent_temporary>
   </component>
@@ -448,7 +458,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711699330832</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="ADD : videos, arrows in rendering, MeanShift cluster">
+      <option name="closed" value="true" />
+      <created>1712082913608</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1712082913608</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -466,7 +484,8 @@
     <MESSAGE value="ADD : PongSurvivor frame skip" />
     <MESSAGE value="DEBUG : All pipeline" />
     <MESSAGE value="DEBUG : Pong Environment" />
-    <option name="LAST_COMMIT_MESSAGE" value="DEBUG : Pong Environment" />
+    <MESSAGE value="ADD : videos, arrows in rendering, MeanShift cluster" />
+    <option name="LAST_COMMIT_MESSAGE" value="ADD : videos, arrows in rendering, MeanShift cluster" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

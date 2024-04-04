@@ -29,5 +29,6 @@ This guide explains how to set up a Conda environment for working with Ray RLlib
    pip install gymnasium[box2d]
    pip install h5py
    conda install -c conda-forge "ray[rllib]"
+   conda install bokeh
    ```
    

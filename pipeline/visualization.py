@@ -1,112 +1,169 @@
+import io
+import os
+
+import cv2
 import numpy as np
+import pandas as pd
+from bokeh.io import output_file
+from bokeh.layouts import column, row
 from sklearn.manifold import TSNE
-import matplotlib
-import matplotlib.pyplot as plt
+
+from bokeh.plotting import figure, show
+from bokeh.transform import factor_cmap
+from bokeh.models import ColumnDataSource, WheelZoomTool, PanTool, HoverTool, ResetTool, Div, CustomJS
+import colorcet as cc
 
 from utilities.dataset_handler import DatasetHandler
+from utilities.global_include import delete_directory, create_directory
 from utilities.sklearn_classifier_handler import SklearnClassifierHandler
 
 
-class LatentSpaceVisualisation:
-    def __init__(self, datasets_directory):
-        self.color_palette = matplotlib.colormaps['tab10']
-        self.latent_space_dataset_handler: DatasetHandler = DatasetHandler(datasets_directory, 'latent_space')
+class Visualisation:
+    def __init__(self, visualization_directory):
+        self.visualization_directory = visualization_directory
+        output_file(visualization_directory + '/visualization.html')
 
         self.latent_space_data = None
-        self.action_data = None
-        self.rendering_data = None
+        self.latent_space_rendering = None
+        self.latent_space_labeled_by_cluster = None
+        self.cluster_color_map = None
 
-        self.tsne_latent_space = None
-        self.latent_space_color = None
+        self.global_source = None
+        self.rendering_image_source = None
 
-        self.kmeans_classifier = None
-        self.latent_space_label = None
-        self.cluster_labels = None
-        self.cluster_average_rendering = []
+        self.latent_space_2d = None
+        self.classifier = None
+        self.number_cluster = None
 
-    def load_data(self, number_data):
-        data = self.latent_space_dataset_handler.load(['latent_space', 'action', 'rendering'], number_data=number_data)
-        self.latent_space_data = data['latent_space']
-        self.action_data = data['action']
-        self.rendering_data = data['rendering']
+        self.figure_latent_space_2d = None
+        self.figure_render_2d = None
 
-    def load_classifier(self, sklearn_directory, name):
-        self.kmeans_classifier = SklearnClassifierHandler(sklearn_directory, name).load()
+    def set_latent_space_data(self, latent_space_data):
+        self.latent_space_data = latent_space_data
 
-    def kmeans_classifier_predict(self):
-        if hasattr(self.kmeans_classifier, 'predict'):
-            self.latent_space_label = self.kmeans_classifier.predict(self.latent_space_data)
-        elif hasattr(self.kmeans_classifier, 'fit_predict'):
-            self.latent_space_label = self.kmeans_classifier.fit_predict(self.latent_space_data)
+    def set_latent_space_rendering(self, set_latent_space_rendering):
+        self.latent_space_rendering = set_latent_space_rendering
+
+    def set_classifier(self, classifier):
+        self.classifier = classifier
+
+    def projection_latent_space_2d(self):
+        tsne = TSNE(n_components=2)
+        self.latent_space_2d = tsne.fit_transform(self.latent_space_data)
+
+    def classifier_predict(self):
+        if hasattr(self.classifier, 'predict'):
+            self.latent_space_labeled_by_cluster = self.classifier.predict(self.latent_space_data)
+        elif hasattr(self.classifier, 'fit_predict'):
+            self.latent_space_labeled_by_cluster = self.classifier.fit_predict(self.latent_space_data)
         else:
             print('warning')
-        self.latent_space_color = [self.color_palette(label) for label in self.latent_space_label]
-        self.cluster_labels = np.unique(self.latent_space_label)
 
-    def compute_tsne(self):
-        tsne = TSNE(n_components=2)
-        self.tsne_latent_space = tsne.fit_transform(self.latent_space_data)
+        if hasattr(self.classifier, 'cluster_centers_'):
+            self.number_cluster = self.classifier.cluster_centers_.shape[0] + 1
 
-    def compute_cluster_rendering_fusions(self):
-        for label in self.cluster_labels:
-            index = np.where(self.latent_space_label == label)
-            rendering = self.rendering_data[index]
-            average_rendering = np.mean(rendering, axis=0)
-            average_rendering = np.sum(rendering, axis=0)
-            average_rendering = np.clip(average_rendering, 0, 255)
-            self.cluster_average_rendering.append(average_rendering)
+    def convert_bokeh_format(self):
+        df = pd.DataFrame({
+            'x_latent_space_2d': self.latent_space_2d[:, 0],
+            'y_latent_space_2d': self.latent_space_2d[:, 1],
+            'cluster': self.latent_space_labeled_by_cluster.astype(str),
+            'rendering': [image for image in self.latent_space_rendering],
+        })
 
-    def plot(self):
-        cloud_dots_figure, cloud_dots_axis = plt.subplots()
-        cloud_dots_figure.canvas.manager.set_window_title('Latent Space')
-        scatter = cloud_dots_axis.scatter(self.tsne_latent_space[:, 0], self.tsne_latent_space[:, 1], c=self.latent_space_color)
+        def str2int(cluster):
+            return cluster.astype(int)
 
-        figure_rendering, axis_rendering = plt.subplots()
-        figure_rendering.canvas.manager.set_window_title('Rendering Environment')
-        axis_rendering.axis('off')
+        df = df.sort_values(by='cluster', key=str2int)
 
-        self.plot_cluster_rendering_fusions()
+        self.global_source = ColumnDataSource(df)
 
-        def on_hover(event):
-            if event.inaxes == cloud_dots_axis:
-                contains, ind = scatter.contains(event)
-                if contains:
-                    index = ind['ind'][0]
-                    axis_rendering.imshow(self.rendering_data[index], cmap='gray')
-                    plt.draw()
-                else:
-                    axis_rendering.clear()
-                    axis_rendering.axis('off')
-                    plt.draw()
+    def create_figure_latent_space_2d(self):
+        path = self.visualization_directory + '/rendering'
+        delete_directory(path)
+        create_directory(path)
+        images = self.global_source.data['rendering'].tolist()
+        path_images = []
 
-        cloud_dots_figure.canvas.mpl_connect('motion_notify_event', on_hover)
-        plt.show()
+        for i, img_array in enumerate(images):
+            filename = f"rendering_{i}.png"
+            filepath = os.path.join(path, filename)
+            cv2.imwrite(filepath, img_array)
+            path_images.append(filepath)
 
-    def plot_cluster_rendering_fusions(self):
+        self.global_source.add(path_images, 'rendering_path')
 
-        nb_images = len(self.cluster_average_rendering)
-        nb_cols = 4
-        nb_rows = (nb_images + nb_cols - 1) // nb_cols
-        cluster_rendering_fusions_figure, cluster_rendering_fusions_axes = plt.subplots(nb_rows, nb_cols, figsize=(6, 4))
-        cluster_rendering_fusions_figure.canvas.manager.set_window_title('Cluster Rendering Fusions')
+        self.rendering_image_source = ColumnDataSource(data=dict(rendering_path=[]))
 
-        for i, ax in enumerate(cluster_rendering_fusions_axes.flat):
-            if i < nb_images:
-                ax.imshow(self.cluster_average_rendering[i] / 255.0, cmap='gray')
-            ax.axis('off')
+        self.figure_render_2d = figure(x_range=(0, 1), y_range=(0, 1), toolbar_location=None)
+        self.figure_render_2d.axis.visible = False
+        self.figure_render_2d.grid.visible = False
+
+        self.figure_render_2d.image_url(url='rendering_path', x=0, y=1, w=1, h=1, source=self.rendering_image_source)
+
+        wheel_zoom = WheelZoomTool()
+        pan = PanTool()
+
+        code = """
+            const indices = cb_data.index.indices;
+            for (let i = 0; i < indices.length; i++) {
+                const index = indices[i];
+                const rendering_path = global_source.data['rendering_path'][index];
+                console.log(rendering_path);
+                image_source.data['rendering_path'] = [global_source.data['rendering_path'][index]];
+                image_source.change.emit();
+                
+                // window.open(rendering_path, '_blank');
+                // console.log(typeof figure_render_2d);
+                // console.log(Object.keys(figure_render_2d));
+                // console.log(Object.getOwnPropertyNames(figure_render_2d));
+                // figure_render_2d.image_url();
+                // newWindow = window.open('https://docs.bokeh.org/static/snake.jpg', '_blank');
+            }
+        """
+
+        callback = CustomJS(args={'figure_render_2d': self.figure_render_2d, 'global_source': self.global_source, 'image_source': self.rendering_image_source}, code=code)
+
+        hover = HoverTool(
+            tooltips=[('Cluster', '@cluster')],
+            callback=callback,
+        )
+
+        reset = ResetTool()
+        tools = (wheel_zoom, pan, hover, reset)
+        # tools = "hover,crosshair,pan,wheel_zoom,zoom_in,zoom_out,box_zoom,undo,redo,reset,tap,save,box_select,poly_select,lasso_select,examine,help"
+
+        self.figure_latent_space_2d = figure(tools=tools, toolbar_location="below", title='Representation of the latent space in 2D projection')
+        self.figure_latent_space_2d.toolbar.active_scroll = wheel_zoom
+
+        self.cluster_color_map = factor_cmap('cluster', palette=cc.glasbey[:self.number_cluster], factors=np.arange(self.number_cluster).astype(str))
+        self.figure_latent_space_2d.circle(source=self.global_source, x='x_latent_space_2d', y='y_latent_space_2d', radius=5, radius_units='screen', fill_color=self.cluster_color_map, line_color=None, legend_field='cluster')
+        self.figure_latent_space_2d.legend.title = 'Cluster'
+        self.figure_latent_space_2d.legend.location = 'top_right'
+
+    def show(self):
+        layout = row(self.figure_latent_space_2d, self.figure_render_2d)
+        show(layout)
 
 
-def visualization(datasets_directory, sklearn_directory):
+def visualization(visualization_directory, datasets_directory, sklearn_directory):
     print('-- Visualization --')
     print()
+    delete_directory(visualization_directory)
+    create_directory(visualization_directory)
 
-    latent_space_visualisation = LatentSpaceVisualisation(datasets_directory)
-    latent_space_visualisation.load_data(2000)
-    latent_space_visualisation.load_classifier(sklearn_directory, 'mean_shift_classifier')  # 'kmeans_classifier' 'dbscan_classifier', 'mean_shift_classifier'
-    latent_space_visualisation.kmeans_classifier_predict()
-    latent_space_visualisation.compute_tsne()
-    latent_space_visualisation.compute_cluster_rendering_fusions()
-    latent_space_visualisation.plot()
+    data = DatasetHandler(datasets_directory, 'latent_space').load(['latent_space', 'action', 'rendering'], number_data=2000)
+    latent_space = data['latent_space']
+    rendering = data['rendering']
 
+    visualization = Visualisation(visualization_directory)
+    visualization.set_latent_space_data(latent_space)
+    visualization.set_latent_space_rendering(rendering)
+    visualization.set_classifier(SklearnClassifierHandler(sklearn_directory, 'mean_shift_classifier').load())
 
+    visualization.projection_latent_space_2d()
+    visualization.classifier_predict()
 
+    visualization.convert_bokeh_format()
+    visualization.create_figure_latent_space_2d()
+
+    visualization.show()

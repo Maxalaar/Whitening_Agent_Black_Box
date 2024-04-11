@@ -4,18 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d79a488c-ca55-4e22-a705-7a6efe046d96" name="Changes" comment="ADD : new visualization features (slide bar)&#10;DEL : old debug directory">
-      <change afterPath="$PROJECT_DIR$/executables/run_visualizations.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/visualizations/combining_render_cluster.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/visualizations/panel_control.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/visualizations/projection_latent_space.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/visualizations/rendering_observation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/visualizations/visualization.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="d79a488c-ca55-4e22-a705-7a6efe046d96" name="Changes" comment="MOD : use Bohek server">
+      <change beforePath="$PROJECT_DIR$/.idea/Whitening_Agent_Black_Box.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Whitening_Agent_Black_Box.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pipeline/visualization.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utilities/sklearn_classifier_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilities/sklearn_classifier_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/executables/run_pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/executables/run_pipeline.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pipeline/generate_latent_space_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/pipeline/generate_latent_space_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pipeline/generate_observation_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/pipeline/generate_observation_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pipeline/training_agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/pipeline/training_agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utilities/dataset_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilities/dataset_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/panel_control.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualizations/panel_control.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/visualization.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualizations/visualization.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +63,8 @@
   "keyToString": {
     "Python.bokeh_mass_plot.executor": "Run",
     "Python.clean_rl_test.executor": "Run",
+    "Python.dask_array.executor": "Debug",
+    "Python.dask_h5.executor": "Debug",
     "Python.debug_bokeh.executor": "Run",
     "Python.debug_bokeh_v2.executor": "Run",
     "Python.debug_bokeh_v3.executor": "Run",
@@ -126,11 +128,11 @@
       <recent name="$PROJECT_DIR$/executables/debugs" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/results" />
       <recent name="$PROJECT_DIR$/static" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/debug" />
       <recent name="$PROJECT_DIR$/executables/debugs" />
-      <recent name="$PROJECT_DIR$/environments/pong_survivor" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -139,8 +141,8 @@
       <command value="conda install anaconda::h5py" />
     </option>
   </component>
-  <component name="RunManager" selected="Python.run_visualizations">
-    <configuration name="debug_numpy" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.run_pipeline">
+    <configuration name="dask_array" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Whitening_Agent_Black_Box" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -153,7 +155,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/debug/debug_numpy.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/debug/dask_array.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -162,7 +164,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="debug_video" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="dask_h5" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Whitening_Agent_Black_Box" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -175,7 +177,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/debug/debug_video.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/debug/dask_h5.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -184,7 +186,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="run_pipeline" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Whitening_Agent_Black_Box" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -193,11 +195,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/executables/run_pipeline.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -228,42 +230,18 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="web_video" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Whitening_Agent_Black_Box" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/debug" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/debug/web_video.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
-      <item itemvalue="Python.debug_numpy" />
-      <item itemvalue="Python.debug_video" />
+      <item itemvalue="Python.dask_array" />
+      <item itemvalue="Python.dask_h5" />
       <item itemvalue="Python.run_visualizations" />
-      <item itemvalue="Python.web_video" />
-      <item itemvalue="Python.main" />
+      <item itemvalue="Python.run_pipeline" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.run_pipeline" />
         <item itemvalue="Python.run_visualizations" />
-        <item itemvalue="Python.main" />
-        <item itemvalue="Python.debug_video" />
-        <item itemvalue="Python.web_video" />
-        <item itemvalue="Python.debug_numpy" />
+        <item itemvalue="Python.dask_h5" />
+        <item itemvalue="Python.dask_array" />
       </list>
     </recent_temporary>
   </component>
@@ -419,7 +397,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712348642967</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="MOD : use Bohek server">
+      <option name="closed" value="true" />
+      <created>1712817340544</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1712817340544</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -440,7 +426,8 @@
     <MESSAGE value="ADD : videos, arrows in rendering, MeanShift cluster" />
     <MESSAGE value="ADD : new visualization code" />
     <MESSAGE value="ADD : new visualization features (slide bar)&#10;DEL : old debug directory" />
-    <option name="LAST_COMMIT_MESSAGE" value="ADD : new visualization features (slide bar)&#10;DEL : old debug directory" />
+    <MESSAGE value="MOD : use Bohek server" />
+    <option name="LAST_COMMIT_MESSAGE" value="MOD : use Bohek server" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -460,7 +447,24 @@
           <line>58</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/debug/dask_array.py</url>
+          <line>14</line>
+          <option name="timeStamp" value="56" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/debug/dask_h5.py</url>
+          <line>13</line>
+          <option name="timeStamp" value="60" />
+        </line-breakpoint>
       </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
     </breakpoint-manager>
   </component>
 </project>

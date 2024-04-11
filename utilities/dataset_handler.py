@@ -1,4 +1,6 @@
+import os
 from typing import Dict, List, Union
+import dask.array as da
 import h5py
 import numpy as np
 
@@ -16,7 +18,7 @@ class DatasetHandler:
         with h5py.File(self.dataset_path, 'a') as hf:
             for key_data in data.keys():
                 if key_data not in hf:
-                    hf.create_dataset(key_data, data=data[key_data], chunks=True, maxshape=(None, *data[key_data].shape[1:]))
+                    da.to_hdf5(self.dataset_path, str(key_data), data[key_data], maxshape=(None, *data[key_data].shape[1:]))
                 else:
                     dataset = hf[key_data]
                     dataset.resize((dataset.shape[0] + data[key_data].shape[0]), axis=0)
@@ -28,7 +30,7 @@ class DatasetHandler:
         if number_data is None:
             data = {}
             for key in keys:
-                data[key] = dataset[key]
+                data[key] = da.from_array(dataset[key])
             return data
         else:
             total_values = dataset[keys[0]].shape[0]
@@ -38,15 +40,25 @@ class DatasetHandler:
 
             data = {}
             for key in keys:
-                data[key] = dataset[key][random_indices]
+                data[key] = da.from_array(dataset[key][random_indices])
             return data
 
-    def load_index(self, keys: List[str], start_index: int, stop_index):
+    def load_episode(self, keys: List[str], number_episode):
         dataset = h5py.File(self.dataset_path)
+        total_values = dataset['index_episodes'].shape[0]
+        random_indices = np.random.choice(total_values, number_episode, replace=False)
+        random_indices.sort()
+
         data = {}
         for key in keys:
-            data[key] = dataset[key][start_index:stop_index]
-        return data
+            data[key] = []
+
+        for index in random_indices:
+            start_index = dataset['index_episodes'][index][0]
+            end_index = dataset['index_episodes'][index][1]
+            dataset[keys].append(dataset['index_episodes'][start_index:end_index])
+
+        return dataset
 
     def print_info(self):
         dataset = h5py.File(self.dataset_path)
@@ -59,5 +71,8 @@ class DatasetHandler:
             print('  shape data: ' + str(dataset[subgroups_name].shape[1:]))
 
     def size(self, key: str):
-        dataset = h5py.File(self.dataset_path)
-        return dataset[key].shape[0]
+        if os.path.exists(self.dataset_path):
+            dataset = h5py.File(self.dataset_path)
+            return dataset[key].shape[0]
+        else:
+            return 0

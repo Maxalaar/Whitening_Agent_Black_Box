@@ -83,7 +83,7 @@ class Visualization:
         for i, img_array in enumerate(images):
             filename = f"rendering_{i}.png"
             filepath = os.path.join(path, filename)
-            cv2.imwrite(filepath, img_array)
+            cv2.imwrite(filepath, np.array(img_array))
             delimiter = "Whitening_Agent_Black_Box"
             suffix = filepath.split(delimiter)[-1]
             path_with_delimiter = delimiter + suffix
@@ -105,7 +105,7 @@ class Visualization:
                 filename = f"cluster_{i}.png"
                 create_directory(os.path.join(path, classifier_name))
                 filepath = os.path.join(path, classifier_name, filename)
-                cv2.imwrite(filepath, cluster_rendering)
+                cv2.imwrite(filepath, np.array(cluster_rendering))
                 delimiter = "Whitening_Agent_Black_Box"
                 suffix = filepath.split(delimiter)[-1]
                 path_with_delimiter = delimiter + suffix
@@ -149,13 +149,13 @@ class Visualization:
     def selection_render_cluster(self, number):
         self.combining_render_cluster.source.data['rendering_path'] = [self.clusters_representation[self.name_selected_classifier][int(self.names_selected_cluster[number])]]
 
-
     def initialisation(self):
         self.projection()
         self.classification()
         self.selection_projector(self.projector_names[0])
         self.selection_classifier(self.classifier_names[0])
         self.projection_latent_space.update()
+        self.panel_control.update()
 
     def display(self):
         curdoc().add_root(grid([[self.projection_latent_space.figure, self.rendering_observation.figure], [self.panel_control.layer, self.combining_render_cluster.figure]]))

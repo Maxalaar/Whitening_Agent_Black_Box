@@ -31,5 +31,7 @@ This guide explains how to set up a Conda environment for working with Ray RLlib
    conda install -c conda-forge "ray[rllib]"
    conda install bokeh
    conda install -c conda-forge altair-all
+   conda install dask
+   conda install pytables
    ```
    

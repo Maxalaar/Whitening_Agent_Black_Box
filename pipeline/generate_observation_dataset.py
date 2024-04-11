@@ -8,6 +8,7 @@ import gymnasium as gym
 from utilities.dataset_handler import DatasetHandler
 from utilities.global_include import get_workers
 import torch
+import dask.array as da
 
 
 def post_rendering_processing(images):
@@ -23,8 +24,11 @@ def post_rendering_processing(images):
 def harvest(policy, number_episode, environment_configuration, environment_creator):
     observations = []
     renderings = []
+    index_episodes = []
 
     for i in range(number_episode):
+        index_start_episode = len(observations)
+
         environment_configuration['render_mode'] = 'rgb_array'
         environment: gym.Env = environment_creator(environment_configuration)
         observation, _ = environment.reset()
@@ -43,10 +47,14 @@ def harvest(policy, number_episode, environment_configuration, environment_creat
             observations.append(observation)
             renderings.append(post_rendering_processing(rendering))
 
+        index_end_episode = len(observations)-1
+        index_episodes.append(np.array([index_start_episode, index_end_episode]))
+
     observations = np.array(observations)
     renderings = np.array(renderings)
+    index_episodes = np.array(index_episodes)
 
-    return {'observation': observations, 'rendering': renderings}
+    return {'observation': observations, 'rendering': renderings, 'index_episodes': index_episodes}
 
 
 def generate_observation_dataset(datasets_directory, rllib_trial_path, number_iteration, number_episode_per_worker):
@@ -68,12 +76,17 @@ def generate_observation_dataset(datasets_directory, rllib_trial_path, number_it
 
     for i in range(number_iteration):
         results = ray.get([worker.for_policy.remote(func=harvest, number_episode=number_episode_per_worker, environment_configuration=environment_configuration, environment_creator=environment_creator) for index, worker in enumerate(workers)])
+        time_step_index = dataset_handler.size('observation')
 
         for key in results[0].keys():
             values = []
             for result in results:
+                if key == 'index_episodes':
+                    result[key] = result[key] + time_step_index
+                    time_step_index = np.max(result[key]) + 1
                 values.append(result[key])
-            value = np.concatenate(values, axis=0)
+            # value = np.concatenate(values, axis=0)
+            value = da.concatenate(values)
             dataset_handler.save({key: value})
 
         del results

@@ -4,6 +4,7 @@ import torch
 import ray
 from ray.rllib.algorithms import PPO, Algorithm
 from ray.tune import Tuner
+import dask.array as da
 
 from utilities.dataset_handler import DatasetHandler
 from utilities.global_include import get_workers
@@ -24,7 +25,7 @@ def generate_latent_space_dataset(datasets_directory, rllib_trial_path):
     observations_dataset_handler.print_info()
     latent_space_dataset_handler = DatasetHandler(datasets_directory, 'latent_space')
 
-    data = observations_dataset_handler.load(['observation', 'rendering'])
+    data = observations_dataset_handler.load(['observation', 'index_episodes', 'rendering'])
     data_observation = data['observation']
 
     tuner: Tuner = Tuner.restore(path=rllib_trial_path, trainable=PPO)
@@ -40,15 +41,9 @@ def generate_latent_space_dataset(datasets_directory, rllib_trial_path):
     for key in results[0].keys():
         values = []
         for result in results:
-            values.append(result[key])
-        value = np.concatenate(values, axis=0)
+            values.append(np.array(result[key]))
+        value = da.concatenate(values, axis=0)
         latent_space_dataset_handler.save({key: value})
 
-    i = 0
-    chunk_size = 30_000
-    dataset_size = observations_dataset_handler.size('rendering')
-    while i < dataset_size:
-        chunk = observations_dataset_handler.load_index(keys=['rendering'], start_index=i, stop_index=min(i+chunk_size, dataset_size))
-        chunk = chunk['rendering']
-        latent_space_dataset_handler.save({'rendering': chunk})
-        i = i+chunk_size
+    latent_space_dataset_handler.save({'index_episodes': data['index_episodes']})
+    latent_space_dataset_handler.save({'rendering': data['rendering']})

@@ -7,12 +7,10 @@ class PanelControl:
         self.visualization = visualization
         self.slider_selection_cluster_render = Slider(
             start=0,
-            # end=self.visualization.number_cluster - 2,
-            # end=10,
             end=0,
             value=0,
             step=1,
-            title='Cluster',
+            # title='Cluster',
         )
         self.multi_choice_selection_cluster = MultiChoice(title='Clusters selected :', options=[])
         self.checkbox_selection_classifier = Select(title='Classifier :', options=self.visualization.classifier_names)
@@ -29,7 +27,7 @@ class PanelControl:
             self.visualization.selection_render_cluster(new)
         self.slider_selection_cluster_render.on_change('value', callback_selection_cluster_render)
 
-        self.layer = column(self.checkbox_selection_classifier, self.multi_choice_selection_cluster, self.slider_selection_cluster_render)     # self.slider_selection_cluster,
+        self.layer = column(self.checkbox_selection_classifier, self.multi_choice_selection_cluster, self.slider_selection_cluster_render)
 
     def update(self):
         self.checkbox_selection_classifier.options = self.visualization.classifier_names

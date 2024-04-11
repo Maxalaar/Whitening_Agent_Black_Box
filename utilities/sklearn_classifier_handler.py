@@ -1,6 +1,18 @@
 from joblib import dump, load
+import os
 
 from utilities.global_include import create_directory
+
+
+def load_classifiers(directory_path):
+    classifiers = {}
+
+    for classifier_name in os.listdir(directory_path):
+        classifier_path = os.path.join(directory_path, classifier_name)
+        if os.path.isfile(classifier_path):
+            classifiers[classifier_name] = SklearnClassifierHandler(directory_path, classifier_name).load()
+
+    return classifiers
 
 
 class SklearnClassifierHandler:

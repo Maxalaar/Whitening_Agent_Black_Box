@@ -6,7 +6,16 @@ from environments.pong_survivor.pong_survivor import PongSurvivor
 if __name__ == '__main__':
     pygame.init()
 
-    pong_survivor = PongSurvivor(environment_configuration={'render_mode': 'human', 'frame_skip': 10, 'number_ball': 1})
+    pong_survivor = PongSurvivor(environment_configuration={
+        'render_mode': 'human',
+        'frame_skip': 10,
+        'number_ball': 1,
+        'size_map_x': 100,
+        'size_map_y': 100,
+        'paddle_size': 15,
+        'paddle_speed': 30,
+        'ball_speed': 40,
+    })
 
     running_episodes = True
     while running_episodes:

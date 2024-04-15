@@ -40,14 +40,14 @@ def training_agent(rllib_directory, rllib_trial_name, environment_name: str, env
             name=rllib_trial_name,
             storage_path=rllib_directory,
             stop={
-                'time_total_s': 60 * 10,
+                'time_total_s': 60 * 60 * 8,
                 'episode_reward_mean': 0.95,
             },
             checkpoint_config=air.CheckpointConfig(
                 num_to_keep=1,
                 checkpoint_score_attribute='episode_reward_mean',
                 checkpoint_score_order='max',
-                # checkpoint_frequency=1,
+                checkpoint_frequency=2,
                 checkpoint_at_end=True,
             )
         ),

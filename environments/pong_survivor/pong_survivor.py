@@ -23,13 +23,17 @@ class PongSurvivor(gym.Env):
         self.balls = []
         self.paddles = []
 
+        self.paddle_size = environment_configuration.get('paddle_size', 30)
+        self.paddle_speed = environment_configuration.get('paddle_speed', 40.0)
+        self.ball_speed = environment_configuration.get('ball_speed', 20.0)
+
         self.time_step: float = 0.02
         self.max_time: float = environment_configuration.get('max_time', 50)
         self.spec = EnvSpec('PongSurvivor')
         self.frame_skip = environment_configuration.get('frame_skip', 0)
         self.spec.max_episode_steps = int(self.max_time / (self.time_step * (self.frame_skip+1)))
 
-        self.play_area: np.ndarray = np.array([100, 100])
+        self.play_area: np.ndarray = np.array([environment_configuration.get('size_map_x', 100), environment_configuration.get('size_map_y', 100)])
 
         for i in range(environment_configuration.get('number_ball', 1)):
             self.balls.append(Ball(self, i))

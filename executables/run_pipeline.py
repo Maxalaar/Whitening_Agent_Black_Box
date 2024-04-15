@@ -13,7 +13,15 @@ if __name__ == '__main__':
     experiment_name = 'debug'
     rllib_trial_name = 'rllib_base_trial'
     environment_name = 'PongSurvivor'     # 'CartPole-v1'
-    environment_configration = {'frame_skip': 10}
+    environment_configration = {
+        'frame_skip': 10,
+        'number_ball': 1,
+        'size_map_x': 100,
+        'size_map_y': 100,
+        'paddle_size': 15,
+        'paddle_speed': 30,
+        'ball_speed': 40,
+    }
     architecture_name = 'dense_latent_space'      # 'minimal_latent_space_model'
 
     execution_directory = os.getcwd()
@@ -37,17 +45,17 @@ if __name__ == '__main__':
     #     environment_configration=environment_configration,
     #     architecture_name=architecture_name,
     # )
-
-    generate_videos(
-        video_directory=video_directory,
-        rllib_trial_path=rllib_trial_path,
-        number_video_per_worker=2,
-    )
-
+    #
+    # generate_videos(
+    #     video_directory=video_directory,
+    #     rllib_trial_path=rllib_trial_path,
+    #     number_video_per_worker=2,
+    # )
+    #
     # generate_observation_dataset(
     #     datasets_directory=datasets_directory,
     #     rllib_trial_path=rllib_trial_path,
-    #     number_iteration=50,
+    #     number_iteration=50 * 5,
     #     number_episode_per_worker=2,
     # )
     #
@@ -55,11 +63,11 @@ if __name__ == '__main__':
     #     datasets_directory=datasets_directory,
     #     rllib_trial_path=rllib_trial_path,
     # )
-    #
-    # latent_space_clustering(
-    #     datasets_directory=datasets_directory,
-    #     sklearn_directory=sklearn_directory,
-    # )
+
+    latent_space_clustering(
+        datasets_directory=datasets_directory,
+        sklearn_directory=sklearn_directory,
+    )
 
     ray.shutdown()
 

@@ -12,8 +12,8 @@ class Paddle:
     def __init__(self, environment, id):
         self.id = 'paddle_' + str(id)
         self.environment = environment
-        self.speed: float = 40.0
-        self.size: float = 30
+        self.speed: float = environment.paddle_speed
+        self.size: float = environment.paddle_size
         self.position: np.ndarray = None
 
         self.reset()

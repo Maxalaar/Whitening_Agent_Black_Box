@@ -53,7 +53,7 @@ def latent_space_clustering(datasets_directory, sklearn_directory):
 
     latent_space_data = data['latent_space']
 
-    kmeans_classifier = KMeans(n_clusters=6, n_init=10)
+    kmeans_classifier = KMeans(n_clusters=10, n_init=10)
     kmeans_classifier.fit(latent_space_data)
     kmeans_classifier_handler.save(kmeans_classifier)
 
@@ -66,11 +66,11 @@ def latent_space_clustering(datasets_directory, sklearn_directory):
     # gaussian_mixture_classifier.fit(latent_space_data)
     # gaussian_mixture_handler.save(gaussian_mixture_classifier)
 
-    data_mean_shift = latent_space_data[:10000]
-    bandwidth = estimate_bandwidth(data_mean_shift, quantile=0.2, n_samples=500, n_jobs=-1)
-    mean_shift_classifier = MeanShift(bandwidth=bandwidth/2)
-    mean_shift_classifier.fit(data_mean_shift)
-    mean_shift_handler.save(mean_shift_classifier)
+    # data_mean_shift = latent_space_data[:10000]
+    # bandwidth = estimate_bandwidth(data_mean_shift, quantile=0.2, n_samples=500, n_jobs=-1)
+    # mean_shift_classifier = MeanShift(bandwidth=bandwidth/2)
+    # mean_shift_classifier.fit(data_mean_shift)
+    # mean_shift_handler.save(mean_shift_classifier)
 
     # auto_kmeans(range_cluster_number=range(2, 10), data=latent_space_data)
 

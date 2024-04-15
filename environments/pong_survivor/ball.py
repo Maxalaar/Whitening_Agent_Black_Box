@@ -12,7 +12,7 @@ class Ball:
     def __init__(self, environment, id):
         self.id = 'ball_' + str(id)
         self.environment = environment
-        self.speed: float = 20.0
+        self.speed: float = environment.ball_speed
         self.position: np.ndarray = None
         self.angle: float = None
         self.velocity: np.ndarray = None

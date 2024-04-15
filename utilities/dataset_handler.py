@@ -43,7 +43,7 @@ class DatasetHandler:
                 data[key] = da.from_array(dataset[key][random_indices])
             return data
 
-    def load_episode(self, keys: List[str], number_episode):
+    def load_episodes(self, keys: List[str], number_episode):
         dataset = h5py.File(self.dataset_path)
         total_values = dataset['index_episodes'].shape[0]
         random_indices = np.random.choice(total_values, number_episode, replace=False)
@@ -56,9 +56,10 @@ class DatasetHandler:
         for index in random_indices:
             start_index = dataset['index_episodes'][index][0]
             end_index = dataset['index_episodes'][index][1]
-            dataset[keys].append(dataset['index_episodes'][start_index:end_index])
+            for key in keys:
+                data[key].append(dataset[key][start_index:end_index])
 
-        return dataset
+        return data
 
     def print_info(self):
         dataset = h5py.File(self.dataset_path)

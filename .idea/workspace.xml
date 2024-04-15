@@ -4,17 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d79a488c-ca55-4e22-a705-7a6efe046d96" name="Changes" comment="MOD : new save system whit dask">
-      <change afterPath="$PROJECT_DIR$/utilities/video_generation_with_clustering.py" afterDir="false" />
+    <list default="true" id="d79a488c-ca55-4e22-a705-7a6efe046d96" name="Changes" comment="MOD : Implementation of customization of certain environment parameters, improvement of the load system to be able to load episodes.">
+      <change afterPath="$PROJECT_DIR$/utilities/generate_videos.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/environments/pong_survivor/ball.py" beforeDir="false" afterPath="$PROJECT_DIR$/environments/pong_survivor/ball.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/environments/pong_survivor/paddle.py" beforeDir="false" afterPath="$PROJECT_DIR$/environments/pong_survivor/paddle.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/environments/pong_survivor/pong_survivor.py" beforeDir="false" afterPath="$PROJECT_DIR$/environments/pong_survivor/pong_survivor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executables/play_pong_survivor.py" beforeDir="false" afterPath="$PROJECT_DIR$/executables/play_pong_survivor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/executables/run_pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/executables/run_pipeline.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pipeline/latent_space_clustering.py" beforeDir="false" afterPath="$PROJECT_DIR$/pipeline/latent_space_clustering.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pipeline/training_agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/pipeline/training_agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utilities/dataset_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilities/dataset_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/executables/run_visualizations.py" beforeDir="false" afterPath="$PROJECT_DIR$/executables/run_visualizations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pipeline/generate_videos.py" beforeDir="false" afterPath="$PROJECT_DIR$/pipeline/generate_episode_videos.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utilities/video_generation_with_clustering.py" beforeDir="false" afterPath="$PROJECT_DIR$/pipeline/generation_cluster_videos.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,11 +125,11 @@
       <recent name="$PROJECT_DIR$/executables/debugs" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/pipeline" />
       <recent name="$PROJECT_DIR$/results" />
       <recent name="$PROJECT_DIR$/static" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/debug" />
-      <recent name="$PROJECT_DIR$/executables/debugs" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -141,52 +138,7 @@
       <command value="conda install anaconda::h5py" />
     </option>
   </component>
-  <component name="RunManager" selected="Python.debug_video_generation_with_clustering">
-    <configuration name="dask_h5" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Whitening_Agent_Black_Box" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/debug" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/debug/dask_h5.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="debug_video_generation_with_clustering" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Whitening_Agent_Black_Box" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Whitening_Agent_Black_Box" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/debug/debug_video_generation_with_clustering.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.run_visualizations">
     <configuration name="play_pong_survivor" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Whitening_Agent_Black_Box" />
       <option name="ENV_FILES" value="" />
@@ -255,18 +207,14 @@
     </configuration>
     <list>
       <item itemvalue="Python.play_pong_survivor" />
-      <item itemvalue="Python.dask_h5" />
-      <item itemvalue="Python.debug_video_generation_with_clustering" />
       <item itemvalue="Python.run_visualizations" />
       <item itemvalue="Python.run_pipeline" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.debug_video_generation_with_clustering" />
         <item itemvalue="Python.run_visualizations" />
         <item itemvalue="Python.run_pipeline" />
         <item itemvalue="Python.play_pong_survivor" />
-        <item itemvalue="Python.dask_h5" />
       </list>
     </recent_temporary>
   </component>
@@ -438,7 +386,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712845523959</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="MOD : Implementation of customization of certain environment parameters, improvement of the load system to be able to load episodes.">
+      <option name="closed" value="true" />
+      <created>1713163599736</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1713163599736</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -461,7 +417,8 @@
     <MESSAGE value="ADD : new visualization features (slide bar)&#10;DEL : old debug directory" />
     <MESSAGE value="MOD : use Bohek server" />
     <MESSAGE value="MOD : new save system whit dask" />
-    <option name="LAST_COMMIT_MESSAGE" value="MOD : new save system whit dask" />
+    <MESSAGE value="MOD : Implementation of customization of certain environment parameters, improvement of the load system to be able to load episodes." />
+    <option name="LAST_COMMIT_MESSAGE" value="MOD : Implementation of customization of certain environment parameters, improvement of the load system to be able to load episodes." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

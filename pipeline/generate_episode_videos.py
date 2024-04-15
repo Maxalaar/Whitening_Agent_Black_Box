@@ -1,46 +1,16 @@
 import gymnasium
 import numpy as np
 import ray
-import cv2
 from ray.rllib.algorithms import PPO, Algorithm
 from ray.tune import Tuner
 import gymnasium as gym
 from utilities.global_include import get_workers, create_directory, delete_directory
 import torch
 
-
-def post_rendering_processing(images):
-    new_width = 246
-    ratio = images.shape[1] / images.shape[0]
-    new_height = int(new_width / ratio)
-    resize_images = cv2.resize(images, (new_width, new_height))
-    gray_images = cv2.cvtColor(resize_images, cv2.COLOR_RGB2GRAY)
-
-    return gray_images
+from utilities.generate_videos import generate_video, post_rendering_processing
 
 
-def generate_video(images, output_video_path, fps=30):
-    if len(images) == 0:
-        print("The list of images is empty.")
-        return
-
-    height, width = images[0].shape
-
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    video_writer = cv2.VideoWriter(output_video_path+'.mp4', fourcc, fps, (width, height))
-
-    if not video_writer.isOpened():
-        print("Error: Could not open the video writer.")
-        return
-
-    for image in images:
-        bgr_image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-        video_writer.write(bgr_image)
-
-    video_writer.release()
-
-
-def worker_generate_videos(policy, worker_index, number_video, environment_configuration, environment_creator, video_directory):
+def worker_generate_video_episodes(policy, worker_index, number_video, environment_configuration, environment_creator, video_directory):
     for i in range(number_video):
         observations = []
         renderings = []
@@ -69,8 +39,8 @@ def worker_generate_videos(policy, worker_index, number_video, environment_confi
         generate_video(images=renderings, output_video_path=video_directory + '/video_' + str(worker_index) + '-' + str(i))
 
 
-def generate_videos(video_directory, rllib_trial_path, number_video_per_worker):
-    print('-- Generate videos --')
+def generate_video_episodes(video_directory, rllib_trial_path, number_video_per_worker):
+    print('-- Generate episode videos --')
     print()
     delete_directory(video_directory)
     create_directory(video_directory)
@@ -85,4 +55,4 @@ def generate_videos(video_directory, rllib_trial_path, number_video_per_worker):
 
     workers = [worker for worker in get_workers(algorithm.workers)]
 
-    ray.get([worker.for_policy.remote(func=worker_generate_videos, worker_index=index, number_video=number_video_per_worker, environment_configuration=environment_configuration, environment_creator=environment_creator, video_directory=video_directory) for index, worker in enumerate(workers)])
+    ray.get([worker.for_policy.remote(func=worker_generate_video_episodes, worker_index=index, number_video=number_video_per_worker, environment_configuration=environment_configuration, environment_creator=environment_creator, video_directory=video_directory) for index, worker in enumerate(workers)])

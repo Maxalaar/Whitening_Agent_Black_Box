@@ -1,8 +1,9 @@
 import os
 import ray
 
-from pipeline.generate_videos import generate_videos
 from utilities.global_include import project_initialisation
+from pipeline.generate_episode_videos import generate_video_episodes
+from pipeline.generation_cluster_videos import generation_cluster_videos
 from pipeline.generate_latent_space_dataset import generate_latent_space_dataset
 from pipeline.generate_observation_dataset import generate_observation_dataset
 from pipeline.training_agent import training_agent
@@ -28,9 +29,11 @@ if __name__ == '__main__':
     results_directory = os.path.join(execution_directory, 'results')
     experiment_directory = os.path.join(results_directory, experiment_name)
     rllib_directory = os.path.join(experiment_directory, 'rllib')
-    video_directory = os.path.join(experiment_directory, 'video')
+    videos_directory = os.path.join(experiment_directory, 'videos')
+    episode_videos_directory = os.path.join(videos_directory, 'episodes')
+    cluster_videos_directory = os.path.join(videos_directory, 'clusters')
     datasets_directory = os.path.join(experiment_directory, 'datasets')
-    sklearn_directory = os.path.join(experiment_directory, 'sklearn')
+    classifiers_directory = os.path.join(experiment_directory, 'sklearn')
     visualization_directory = os.path.join(experiment_directory, 'visualization')
     rllib_trial_path = os.path.join(rllib_directory, rllib_trial_name)
 
@@ -46,11 +49,11 @@ if __name__ == '__main__':
     #     architecture_name=architecture_name,
     # )
     #
-    # generate_videos(
-    #     video_directory=video_directory,
-    #     rllib_trial_path=rllib_trial_path,
-    #     number_video_per_worker=2,
-    # )
+    generate_video_episodes(
+        video_directory=episode_videos_directory,
+        rllib_trial_path=rllib_trial_path,
+        number_video_per_worker=2,
+    )
     #
     # generate_observation_dataset(
     #     datasets_directory=datasets_directory,
@@ -63,11 +66,17 @@ if __name__ == '__main__':
     #     datasets_directory=datasets_directory,
     #     rllib_trial_path=rllib_trial_path,
     # )
+    #
+    # latent_space_clustering(
+    #     datasets_directory=datasets_directory,
+    #     sklearn_directory=classifiers_directory,
+    # )
 
-    latent_space_clustering(
-        datasets_directory=datasets_directory,
-        sklearn_directory=sklearn_directory,
-    )
+    # generation_cluster_videos(
+    #     video_directory=cluster_videos_directory,
+    #     datasets_directory=datasets_directory,
+    #     classifiers_directory=classifiers_directory,
+    # )
 
     ray.shutdown()
 

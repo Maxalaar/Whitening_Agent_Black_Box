@@ -3,7 +3,7 @@ import subprocess
 
 
 if __name__ == '__main__':
-    path = '/home/malaarabiou/Programming_Projects/Pycharm_Projects/Whitening_Agent_Black_Box/results/debug'
+    path = '/home/malaarabiou/Programming_Projects/Pycharm_Projects/Whitening_Agent_Black_Box/results/architecture_debug'
     number_data = 1000
 
     current_directory = os.getcwd()

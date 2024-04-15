@@ -1,6 +1,7 @@
 import os
 import ray
 
+from pipeline.generation_clustered_episode_videos import generation_clustered_episode_videos
 from utilities.global_include import project_initialisation
 from pipeline.generate_episode_videos import generate_video_episodes
 from pipeline.generation_cluster_videos import generation_cluster_videos
@@ -11,7 +12,7 @@ from pipeline.latent_space_clustering import latent_space_clustering
 
 
 if __name__ == '__main__':
-    experiment_name = 'debug'
+    experiment_name = 'architecture_debug_v2'
     rllib_trial_name = 'rllib_base_trial'
     environment_name = 'PongSurvivor'     # 'CartPole-v1'
     environment_configration = {
@@ -24,6 +25,11 @@ if __name__ == '__main__':
         'ball_speed': 40,
     }
     architecture_name = 'dense_latent_space'      # 'minimal_latent_space_model'
+    architecture_configuration = {
+        'number_hidden_layers': 3,
+        'size_hidden_layers': 64,
+        'layers_use_clustering': [1, 1, 1],
+    }
 
     execution_directory = os.getcwd()
     results_directory = os.path.join(execution_directory, 'results')
@@ -32,6 +38,7 @@ if __name__ == '__main__':
     videos_directory = os.path.join(experiment_directory, 'videos')
     episode_videos_directory = os.path.join(videos_directory, 'episodes')
     cluster_videos_directory = os.path.join(videos_directory, 'clusters')
+    clustered_episode_videos_directory = os.path.join(videos_directory, 'clustered_episode')
     datasets_directory = os.path.join(experiment_directory, 'datasets')
     classifiers_directory = os.path.join(experiment_directory, 'sklearn')
     visualization_directory = os.path.join(experiment_directory, 'visualization')
@@ -47,18 +54,19 @@ if __name__ == '__main__':
     #     environment_name=environment_name,
     #     environment_configration=environment_configration,
     #     architecture_name=architecture_name,
+    #     architecture_configuration=architecture_configuration,
     # )
     #
-    generate_video_episodes(
-        video_directory=episode_videos_directory,
-        rllib_trial_path=rllib_trial_path,
-        number_video_per_worker=2,
-    )
+    # generate_video_episodes(
+    #     video_directory=episode_videos_directory,
+    #     rllib_trial_path=rllib_trial_path,
+    #     number_video_per_worker=2,
+    # )
     #
     # generate_observation_dataset(
     #     datasets_directory=datasets_directory,
     #     rllib_trial_path=rllib_trial_path,
-    #     number_iteration=50 * 5,
+    #     number_iteration=50,
     #     number_episode_per_worker=2,
     # )
     #
@@ -71,9 +79,15 @@ if __name__ == '__main__':
     #     datasets_directory=datasets_directory,
     #     sklearn_directory=classifiers_directory,
     # )
+    #
+    generation_cluster_videos(
+        video_directory=cluster_videos_directory,
+        datasets_directory=datasets_directory,
+        classifiers_directory=classifiers_directory,
+    )
 
-    # generation_cluster_videos(
-    #     video_directory=cluster_videos_directory,
+    # generation_clustered_episode_videos(
+    #     video_directory=clustered_episode_videos_directory,
     #     datasets_directory=datasets_directory,
     #     classifiers_directory=classifiers_directory,
     # )

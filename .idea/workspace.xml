@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d79a488c-ca55-4e22-a705-7a6efe046d96" name="Changes" comment="ADD : Visualization of cluster videos, enhancement of visualization parameterization.">
-      <change afterPath="$PROJECT_DIR$/pipeline/generation_clustered_episode_videos.py" afterDir="false" />
+    <list default="true" id="d79a488c-ca55-4e22-a705-7a6efe046d96" name="Changes" comment="ADD : new architecture, function for generating clustered videos.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/architectures/dense_latent_space.py" beforeDir="false" afterPath="$PROJECT_DIR$/architectures/dense_latent_space.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/environments/pong_survivor/pong_survivor.py" beforeDir="false" afterPath="$PROJECT_DIR$/environments/pong_survivor/pong_survivor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/executables/run_pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/executables/run_pipeline.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/executables/run_visualizations.py" beforeDir="false" afterPath="$PROJECT_DIR$/executables/run_visualizations.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pipeline/generation_cluster_videos.py" beforeDir="false" afterPath="$PROJECT_DIR$/pipeline/generation_cluster_videos.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pipeline/latent_space_clustering.py" beforeDir="false" afterPath="$PROJECT_DIR$/pipeline/latent_space_clustering.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pipeline/training_agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/pipeline/training_agent.py" afterDir="false" />
     </list>
@@ -92,6 +91,7 @@
     "Python.generate_dataset_from_agent.executor": "Run",
     "Python.generate_latent_space_dataset.executor": "Run",
     "Python.generate_observation_dataset.executor": "Run",
+    "Python.hierarchical_clustering.executor": "Debug",
     "Python.hover.executor": "Run",
     "Python.image_viewer_bokeh.executor": "Run",
     "Python.lasso_bokeh.executor": "Run",
@@ -101,7 +101,7 @@
     "Python.minimal_latent_space.executor": "Run",
     "Python.numpy.executor": "Run",
     "Python.pipeline.executor": "Run",
-    "Python.play_pong_survivor.executor": "Debug",
+    "Python.play_pong_survivor.executor": "Run",
     "Python.pytorch.executor": "Run",
     "Python.ray_dataset.executor": "Run",
     "Python.run_pipeline.executor": "Run",
@@ -140,7 +140,29 @@
       <command value="conda install anaconda::h5py" />
     </option>
   </component>
-  <component name="RunManager" selected="Python.run_pipeline">
+  <component name="RunManager" selected="Python.play_pong_survivor">
+    <configuration name="hierarchical_clustering" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Whitening_Agent_Black_Box" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/debug" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/debug/hierarchical_clustering.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="play_pong_survivor" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Whitening_Agent_Black_Box" />
       <option name="ENV_FILES" value="" />
@@ -230,6 +252,7 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.hierarchical_clustering" />
       <item itemvalue="Python.pytorch" />
       <item itemvalue="Python.play_pong_survivor" />
       <item itemvalue="Python.run_visualizations" />
@@ -237,9 +260,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.run_pipeline" />
         <item itemvalue="Python.play_pong_survivor" />
         <item itemvalue="Python.run_visualizations" />
+        <item itemvalue="Python.hierarchical_clustering" />
+        <item itemvalue="Python.run_pipeline" />
         <item itemvalue="Python.pytorch" />
       </list>
     </recent_temporary>
@@ -428,7 +452,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713167532095</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="ADD : new architecture, function for generating clustered videos.">
+      <option name="closed" value="true" />
+      <created>1713189427483</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1713189427483</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -453,7 +485,8 @@
     <MESSAGE value="MOD : new save system whit dask" />
     <MESSAGE value="MOD : Implementation of customization of certain environment parameters, improvement of the load system to be able to load episodes." />
     <MESSAGE value="ADD : Visualization of cluster videos, enhancement of visualization parameterization." />
-    <option name="LAST_COMMIT_MESSAGE" value="ADD : Visualization of cluster videos, enhancement of visualization parameterization." />
+    <MESSAGE value="ADD : new architecture, function for generating clustered videos." />
+    <option name="LAST_COMMIT_MESSAGE" value="ADD : new architecture, function for generating clustered videos." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -487,6 +520,11 @@
           <url>file://$PROJECT_DIR$/pipeline/generation_clustered_episode_videos.py</url>
           <line>64</line>
           <option name="timeStamp" value="74" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/debug/hierarchical_clustering.py</url>
+          <line>33</line>
+          <option name="timeStamp" value="80" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

@@ -43,19 +43,19 @@ def latent_space_clustering(datasets_directory, sklearn_directory):
     print()
 
     latent_space_dataset_handler: DatasetHandler = DatasetHandler(datasets_directory, 'latent_space')
-    kmeans_classifier_handler = SklearnClassifierHandler(sklearn_directory, 'kmeans_classifier')
     dbscan_classifier_handler = SklearnClassifierHandler(sklearn_directory, 'dbscan_classifier')
     gaussian_mixture_handler = SklearnClassifierHandler(sklearn_directory, 'gaussian_mixture_classifier')
-    mean_shift_handler = SklearnClassifierHandler(sklearn_directory, 'mean_shift_classifier')
 
     latent_space_dataset_handler.print_info()
     data = latent_space_dataset_handler.load(['latent_space'])
 
     latent_space_data = data['latent_space']
 
-    kmeans_classifier = KMeans(n_clusters=10, n_init=10)
-    kmeans_classifier.fit(latent_space_data)
-    kmeans_classifier_handler.save(kmeans_classifier)
+    for cluster_number in range(2, 10):
+        kmeans_classifier_handler = SklearnClassifierHandler(sklearn_directory, f'kmeans_classifier_{cluster_number}')
+        kmeans_classifier = KMeans(n_clusters=cluster_number, n_init=10)
+        kmeans_classifier.fit(latent_space_data)
+        kmeans_classifier_handler.save(kmeans_classifier)
 
     # data_dbscan = latent_space_data
     # dbscan_classifier = DBSCAN(eps=0.40, n_jobs=-1)   # eps=0.4,
@@ -66,11 +66,13 @@ def latent_space_clustering(datasets_directory, sklearn_directory):
     # gaussian_mixture_classifier.fit(latent_space_data)
     # gaussian_mixture_handler.save(gaussian_mixture_classifier)
 
-    data_mean_shift = latent_space_data[:10000]
-    bandwidth = estimate_bandwidth(data_mean_shift, quantile=0.2, n_samples=500, n_jobs=-1)
-    mean_shift_classifier = MeanShift(bandwidth=bandwidth/2)
-    mean_shift_classifier.fit(data_mean_shift)
-    mean_shift_handler.save(mean_shift_classifier)
+    # data_mean_shift = latent_space_data[:10000]
+    # bandwidth = estimate_bandwidth(data_mean_shift, quantile=0.2, n_samples=500, n_jobs=-1)
+    # for coefficient in [1, 0.75, 0.5, 0.25]:
+    #     mean_shift_handler = SklearnClassifierHandler(sklearn_directory, f'mean_shift_classifier_{coefficient}')
+    #     mean_shift_classifier = MeanShift(bandwidth=bandwidth*coefficient)
+    #     mean_shift_classifier.fit(data_mean_shift)
+    #     mean_shift_handler.save(mean_shift_classifier)
 
     # auto_kmeans(range_cluster_number=range(2, 10), data=latent_space_data)
 

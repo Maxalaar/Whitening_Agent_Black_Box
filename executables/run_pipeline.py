@@ -12,7 +12,7 @@ from pipeline.latent_space_clustering import latent_space_clustering
 
 
 if __name__ == '__main__':
-    experiment_name = 'architecture_debug_v2'
+    experiment_name = 'big_debug'
     rllib_trial_name = 'rllib_base_trial'
     environment_name = 'PongSurvivor'     # 'CartPole-v1'
     environment_configration = {
@@ -26,9 +26,8 @@ if __name__ == '__main__':
     }
     architecture_name = 'dense_latent_space'      # 'minimal_latent_space_model'
     architecture_configuration = {
-        'number_hidden_layers': 3,
-        'size_hidden_layers': 64,
-        'layers_use_clustering': [1, 1, 1],
+        'configuration_hidden_layers': [64, 32, 16, 32, 64],
+        'layers_use_clustering': [False, False, True, False, False],
     }
 
     execution_directory = os.getcwd()
@@ -66,7 +65,7 @@ if __name__ == '__main__':
     # generate_observation_dataset(
     #     datasets_directory=datasets_directory,
     #     rllib_trial_path=rllib_trial_path,
-    #     number_iteration=50,
+    #     number_iteration=50 * 5,
     #     number_episode_per_worker=2,
     # )
     #
@@ -74,23 +73,23 @@ if __name__ == '__main__':
     #     datasets_directory=datasets_directory,
     #     rllib_trial_path=rllib_trial_path,
     # )
-    #
-    # latent_space_clustering(
-    #     datasets_directory=datasets_directory,
-    #     sklearn_directory=classifiers_directory,
-    # )
-    #
+
+    latent_space_clustering(
+        datasets_directory=datasets_directory,
+        sklearn_directory=classifiers_directory,
+    )
+
     generation_cluster_videos(
         video_directory=cluster_videos_directory,
         datasets_directory=datasets_directory,
         classifiers_directory=classifiers_directory,
     )
 
-    # generation_clustered_episode_videos(
-    #     video_directory=clustered_episode_videos_directory,
-    #     datasets_directory=datasets_directory,
-    #     classifiers_directory=classifiers_directory,
-    # )
+    generation_clustered_episode_videos(
+        video_directory=clustered_episode_videos_directory,
+        datasets_directory=datasets_directory,
+        classifiers_directory=classifiers_directory,
+    )
 
     ray.shutdown()
 

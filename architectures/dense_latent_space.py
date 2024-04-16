@@ -11,8 +11,8 @@ class DenseLatentSpaceModel(TorchModelV2, nn.Module):
         TorchModelV2.__init__(self, observation_space, action_space, num_outputs, model_config, name)
         nn.Module.__init__(self)
         model_configuration = model_config['custom_model_config']
-        self.num_hidden_layers = model_configuration.get('number_hidden_layers', 2)
-        self.size_layers = model_configuration.get('size_hidden_layers', 32)
+        self.configuration_hidden_layers = model_configuration.get('configuration_hidden_layers', [32, 32])
+        self.num_hidden_layers = len(self.configuration_hidden_layers)
         self.layers_use_clustering = model_configuration.get('layers_use_clustering', [True for _ in range(self.num_hidden_layers)])
 
         self.flatten_observation = None
@@ -21,22 +21,22 @@ class DenseLatentSpaceModel(TorchModelV2, nn.Module):
         observation_size = get_preprocessor(observation_space)(observation_space).size
         action_size = get_preprocessor(action_space)(action_space).size
 
-        actor_layers = [nn.Linear(observation_size, self.size_layers), nn.ReLU()]
-        critic_layers = [nn.Linear(observation_size, self.size_layers), nn.ReLU()]
+        actor_layers = [nn.Linear(observation_size, self.configuration_hidden_layers[0]), nn.ReLU()]
+        critic_layers = [nn.Linear(observation_size, self.configuration_hidden_layers[0]), nn.ReLU()]
 
-        for _ in range(self.num_hidden_layers - 1):
-            actor_layers.append(nn.Linear(self.size_layers, self.size_layers))
+        for i in range(0, self.num_hidden_layers - 1):
+            actor_layers.append(nn.Linear(self.configuration_hidden_layers[i], self.configuration_hidden_layers[i+1]))
             actor_layers.append(nn.ReLU())
 
-            critic_layers.append(nn.Linear(self.size_layers, self.size_layers))
+            critic_layers.append(nn.Linear(self.configuration_hidden_layers[i], self.configuration_hidden_layers[i+1]))
             critic_layers.append(nn.ReLU())
 
-        critic_layers.append(nn.Linear(self.size_layers, 1))
+        critic_layers.append(nn.Linear(self.configuration_hidden_layers[-1], 1))
 
         self.actor_layers = nn.Sequential(*actor_layers)
         self.critic_layers = nn.Sequential(*critic_layers)
 
-        self.action_layer = nn.Linear(self.size_layers, action_size)
+        self.action_layer = nn.Linear(self.configuration_hidden_layers[-1], action_size)
 
         self.hook_current_index_layer = None
         self.hook_activations = None

@@ -16,7 +16,7 @@ from visualizations.rendering_observation import RenderingObservation
 def finding_number_clusters(classifier) -> int:
     number_cluster = None
     if hasattr(classifier, 'cluster_centers_'):
-        number_cluster = classifier.cluster_centers_.shape[0] + 1
+        number_cluster = classifier.cluster_centers_.shape[0]
     return number_cluster
 
 

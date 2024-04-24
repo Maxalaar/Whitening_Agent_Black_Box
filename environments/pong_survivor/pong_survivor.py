@@ -9,6 +9,7 @@ from gymnasium.envs.registration import EnvSpec
 from environments.pong_survivor.ball import Ball, ball_observation_space
 from environments.pong_survivor.paddle import Paddle, paddle_observation_space
 from environments.pong_survivor.render import RenderEnvironment
+from utilities.flattening_dictionary import flattening_dictionary
 
 if TYPE_CHECKING:
     pass
@@ -31,9 +32,10 @@ class PongSurvivor(gym.Env):
         self.max_time: float = environment_configuration.get('max_time', 50)
         self.spec = EnvSpec('PongSurvivor')
         self.frame_skip = environment_configuration.get('frame_skip', 0)
-        self.spec.max_episode_steps = int(self.max_time / (self.time_step * (self.frame_skip+1)))
+        self.spec.max_episode_steps = int(self.max_time / (self.time_step * (self.frame_skip + 1)))
 
-        self.play_area: np.ndarray = np.array([environment_configuration.get('size_map_x', 100), environment_configuration.get('size_map_y', 100)])
+        self.play_area: np.ndarray = np.array(
+            [environment_configuration.get('size_map_x', 100), environment_configuration.get('size_map_y', 100)])
 
         for i in range(environment_configuration.get('number_ball', 1)):
             self.balls.append(Ball(self, i))
@@ -55,6 +57,7 @@ class PongSurvivor(gym.Env):
 
     def reset(self, *, seed=None, options=None):
         self._current_time_steps = 0
+
         self.terminated = False
         self.truncated = False
 
@@ -64,7 +67,7 @@ class PongSurvivor(gym.Env):
         for paddle in self.paddles:
             paddle.reset()
 
-        return self._get_observation(), {}
+        return self._get_observation(), self._get_information()
 
     def step(self, action):
         self._current_time_steps += 1
@@ -83,7 +86,7 @@ class PongSurvivor(gym.Env):
             if self.render_mode is not None:
                 self.render()
 
-        return self._get_observation(), 1.0 / (self.spec.max_episode_steps+1), self.terminated, self.truncated, {}
+        return self._get_observation(), 1.0 / (self.spec.max_episode_steps + 1), self.terminated, self.truncated, self._get_information()
 
     def render(self):
         if self.render_environment is None:
@@ -112,3 +115,10 @@ class PongSurvivor(gym.Env):
             observation[paddle.id] = paddle.observation()
 
         return observation
+
+    def _get_information(self):
+        information = {}
+        information.update({
+            'observation': self._get_observation(),
+        })
+        return flattening_dictionary(information)

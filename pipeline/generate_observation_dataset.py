@@ -6,6 +6,7 @@ from ray.rllib.algorithms import PPO, Algorithm, AlgorithmConfig
 from ray.tune import Tuner
 import gymnasium as gym
 from utilities.dataset_handler import DatasetHandler
+from utilities.dictionary_merger import dictionary_merger
 from utilities.global_include import get_workers
 import torch
 import dask.array as da
@@ -24,6 +25,7 @@ def post_rendering_processing(images):
 def harvest(policy, number_episode, environment_configuration, environment_creator):
     observations = []
     renderings = []
+    information: dict = None
     index_episodes = []
 
     for i in range(number_episode):
@@ -31,21 +33,24 @@ def harvest(policy, number_episode, environment_configuration, environment_creat
 
         environment_configuration['render_mode'] = 'rgb_array'
         environment: gym.Env = environment_creator(environment_configuration)
-        observation, _ = environment.reset()
+        observation, info = environment.reset()
         observation = gymnasium.spaces.utils.flatten(environment.observation_space, observation)
         rendering = environment.render()
         observations.append(observation)
         renderings.append(post_rendering_processing(rendering))
+        information = dictionary_merger(information, info)
         terminate = False
         truncated = False
 
         while not terminate and not truncated:
             action = policy.compute_actions(obs_batch=torch.tensor(np.array([observation])), explore=True)[0]
-            observation, _, terminate, truncated, _ = environment.step(action)
+            observation, _, terminate, truncated, info = environment.step(action)
             observation = gymnasium.spaces.utils.flatten(environment.observation_space, observation)
             rendering = environment.render()
+
             observations.append(observation)
             renderings.append(post_rendering_processing(rendering))
+            information = dictionary_merger(information, info)
 
         index_end_episode = len(observations)-1
         index_episodes.append(np.array([index_start_episode, index_end_episode]))
@@ -54,7 +59,13 @@ def harvest(policy, number_episode, environment_configuration, environment_creat
     renderings = np.array(renderings)
     index_episodes = np.array(index_episodes)
 
-    return {'observation': observations, 'rendering': renderings, 'index_episodes': index_episodes}
+    data = {'observation': observations, 'rendering': renderings, 'index_episodes': index_episodes}
+
+    for key in information.keys():
+        value = information[key]
+        data[key] = np.array(value)
+
+    return data
 
 
 def generate_observation_dataset(datasets_directory, rllib_trial_path, number_iteration, number_episode_per_worker):

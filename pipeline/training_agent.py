@@ -43,7 +43,7 @@ def training_agent(rllib_directory, rllib_trial_name, environment_name: str, env
             name=rllib_trial_name,
             storage_path=rllib_directory,
             stop={
-                'time_total_s': 60 * 60 * 8,
+                'time_total_s': 60 * 60 * 1,
                 # 'episode_reward_mean': 0.95,
             },
             checkpoint_config=air.CheckpointConfig(

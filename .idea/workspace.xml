@@ -4,14 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d79a488c-ca55-4e22-a705-7a6efe046d96" name="Changes" comment="ADD : new architecture, function for generating clustered videos.">
+    <list default="true" id="d79a488c-ca55-4e22-a705-7a6efe046d96" name="Changes" comment="ADD : new architecture">
+      <change afterPath="$PROJECT_DIR$/pipeline/generation_statistics_cluster.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utilities/dictionary_merger.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utilities/flattening_dictionary.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Whitening_Agent_Black_Box.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Whitening_Agent_Black_Box.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/architectures/dense_latent_space.py" beforeDir="false" afterPath="$PROJECT_DIR$/architectures/dense_latent_space.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/environments/pong_survivor/pong_survivor.py" beforeDir="false" afterPath="$PROJECT_DIR$/environments/pong_survivor/pong_survivor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/executables/run_pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/executables/run_pipeline.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/executables/run_visualizations.py" beforeDir="false" afterPath="$PROJECT_DIR$/executables/run_visualizations.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pipeline/latent_space_clustering.py" beforeDir="false" afterPath="$PROJECT_DIR$/pipeline/latent_space_clustering.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pipeline/generate_latent_space_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/pipeline/generate_latent_space_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pipeline/generate_observation_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/pipeline/generate_observation_dataset.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pipeline/training_agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/pipeline/training_agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utilities/dataset_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilities/dataset_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/visualization.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualizations/visualization.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,69 +61,71 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.bokeh_mass_plot.executor": "Run",
-    "Python.clean_rl_test.executor": "Run",
-    "Python.dask_array.executor": "Debug",
-    "Python.dask_h5.executor": "Debug",
-    "Python.debug_bokeh.executor": "Run",
-    "Python.debug_bokeh_v2.executor": "Run",
-    "Python.debug_bokeh_v3.executor": "Run",
-    "Python.debug_bokeh_v4.executor": "Run",
-    "Python.debug_dataset_handler.executor": "Run",
-    "Python.debug_dbscan.executor": "Run",
-    "Python.debug_h5py.executor": "Run",
-    "Python.debug_inference_rllib.executor": "Debug",
-    "Python.debug_mass_clustering.executor": "Run",
-    "Python.debug_matplotlib.executor": "Run",
-    "Python.debug_matplotlib_v2.executor": "Run",
-    "Python.debug_numpy.executor": "Run",
-    "Python.debug_plotly.executor": "Run",
-    "Python.debug_pong_survivor.executor": "Run",
-    "Python.debug_prov.executor": "Run",
-    "Python.debug_pygame.executor": "Run",
-    "Python.debug_pyspark.executor": "Debug",
-    "Python.debug_ray.executor": "Run",
-    "Python.debug_rllib.executor": "Run",
-    "Python.debug_rllib_worker.executor": "Run",
-    "Python.debug_rllib_workers.executor": "Run",
-    "Python.debug_rollout.executor": "Run",
-    "Python.debug_tuner.executor": "Run",
-    "Python.debug_vega.executor": "Run",
-    "Python.debug_video.executor": "Run",
-    "Python.debug_video_generation_with_clustering.executor": "Run",
-    "Python.generate_data_from_agent.executor": "Run",
-    "Python.generate_dataset_from_agent.executor": "Run",
-    "Python.generate_latent_space_dataset.executor": "Run",
-    "Python.generate_observation_dataset.executor": "Run",
-    "Python.hierarchical_clustering.executor": "Debug",
-    "Python.hover.executor": "Run",
-    "Python.image_viewer_bokeh.executor": "Run",
-    "Python.lasso_bokeh.executor": "Run",
-    "Python.latent_space_clustering.executor": "Run",
-    "Python.latent_space_visualization.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.minimal_latent_space.executor": "Run",
-    "Python.numpy.executor": "Run",
-    "Python.pipeline.executor": "Run",
-    "Python.play_pong_survivor.executor": "Run",
-    "Python.pytorch.executor": "Run",
-    "Python.ray_dataset.executor": "Run",
-    "Python.run_pipeline.executor": "Run",
-    "Python.run_visualizations.executor": "Run",
-    "Python.training_agent.executor": "Run",
-    "Python.video.executor": "Run",
-    "Python.visualizations.executor": "Run",
-    "Python.web_video.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/malaarabiou/Programming_Projects/Pycharm_Projects/Whitening_Agent_Black_Box/debug",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.bokeh_mass_plot.executor&quot;: &quot;Run&quot;,
+    &quot;Python.clean_rl_test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dask_array.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.dask_h5.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.debug_bokeh.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_bokeh_v2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_bokeh_v3.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_bokeh_v4.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_dataset_handler.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_dbscan.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_h5py.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_inference_rllib.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.debug_mass_clustering.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_matplotlib.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_matplotlib_v2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_numpy.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_plotly.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_pong_survivor.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_prov.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_pygame.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_pyspark.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.debug_ray.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_rllib.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_rllib_worker.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_rllib_workers.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_rollout.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_statistics.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_statistics_cluster.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_tuner.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_vega.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_video.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_video_generation_with_clustering.executor&quot;: &quot;Run&quot;,
+    &quot;Python.generate_data_from_agent.executor&quot;: &quot;Run&quot;,
+    &quot;Python.generate_dataset_from_agent.executor&quot;: &quot;Run&quot;,
+    &quot;Python.generate_latent_space_dataset.executor&quot;: &quot;Run&quot;,
+    &quot;Python.generate_observation_dataset.executor&quot;: &quot;Run&quot;,
+    &quot;Python.hierarchical_clustering.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.hover.executor&quot;: &quot;Run&quot;,
+    &quot;Python.image_viewer_bokeh.executor&quot;: &quot;Run&quot;,
+    &quot;Python.lasso_bokeh.executor&quot;: &quot;Run&quot;,
+    &quot;Python.latent_space_clustering.executor&quot;: &quot;Run&quot;,
+    &quot;Python.latent_space_visualization.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.minimal_latent_space.executor&quot;: &quot;Run&quot;,
+    &quot;Python.numpy.executor&quot;: &quot;Run&quot;,
+    &quot;Python.pipeline.executor&quot;: &quot;Run&quot;,
+    &quot;Python.play_pong_survivor.executor&quot;: &quot;Run&quot;,
+    &quot;Python.pytorch.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ray_dataset.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run_pipeline.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run_visualizations.executor&quot;: &quot;Run&quot;,
+    &quot;Python.training_agent.executor&quot;: &quot;Run&quot;,
+    &quot;Python.video.executor&quot;: &quot;Run&quot;,
+    &quot;Python.visualizations.executor&quot;: &quot;Run&quot;,
+    &quot;Python.web_video.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/malaarabiou/Programming_Projects/Pycharm_Projects/Whitening_Agent_Black_Box/debug/debug_statistics_cluster.py&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/debug" />
@@ -140,7 +148,29 @@
       <command value="conda install anaconda::h5py" />
     </option>
   </component>
-  <component name="RunManager" selected="Python.play_pong_survivor">
+  <component name="RunManager" selected="Python.run_visualizations">
+    <configuration name="debug_statistics_cluster" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Whitening_Agent_Black_Box" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/debug" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/debug/debug_statistics_cluster.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="hierarchical_clustering" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Whitening_Agent_Black_Box" />
       <option name="ENV_FILES" value="" />
@@ -177,28 +207,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/executables/play_pong_survivor.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="pytorch" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Whitening_Agent_Black_Box" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/debug" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/debug/pytorch.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -252,19 +260,19 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.debug_statistics_cluster" />
       <item itemvalue="Python.hierarchical_clustering" />
-      <item itemvalue="Python.pytorch" />
       <item itemvalue="Python.play_pong_survivor" />
-      <item itemvalue="Python.run_visualizations" />
       <item itemvalue="Python.run_pipeline" />
+      <item itemvalue="Python.run_visualizations" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.play_pong_survivor" />
         <item itemvalue="Python.run_visualizations" />
-        <item itemvalue="Python.hierarchical_clustering" />
+        <item itemvalue="Python.debug_statistics_cluster" />
         <item itemvalue="Python.run_pipeline" />
-        <item itemvalue="Python.pytorch" />
+        <item itemvalue="Python.play_pong_survivor" />
+        <item itemvalue="Python.hierarchical_clustering" />
       </list>
     </recent_temporary>
   </component>
@@ -460,7 +468,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713189427483</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="ADD : new architecture">
+      <option name="closed" value="true" />
+      <created>1713274541939</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1713274541939</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -486,7 +502,8 @@
     <MESSAGE value="MOD : Implementation of customization of certain environment parameters, improvement of the load system to be able to load episodes." />
     <MESSAGE value="ADD : Visualization of cluster videos, enhancement of visualization parameterization." />
     <MESSAGE value="ADD : new architecture, function for generating clustered videos." />
-    <option name="LAST_COMMIT_MESSAGE" value="ADD : new architecture, function for generating clustered videos." />
+    <MESSAGE value="ADD : new architecture" />
+    <option name="LAST_COMMIT_MESSAGE" value="ADD : new architecture" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -520,11 +537,6 @@
           <url>file://$PROJECT_DIR$/pipeline/generation_clustered_episode_videos.py</url>
           <line>64</line>
           <option name="timeStamp" value="74" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/debug/hierarchical_clustering.py</url>
-          <line>33</line>
-          <option name="timeStamp" value="80" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

@@ -77,3 +77,7 @@ class DatasetHandler:
             return dataset[key].shape[0]
         else:
             return 0
+
+    def get_subgroups_name(self):
+        dataset = h5py.File(self.dataset_path)
+        return dataset

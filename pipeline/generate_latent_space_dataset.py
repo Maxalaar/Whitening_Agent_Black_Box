@@ -45,5 +45,6 @@ def generate_latent_space_dataset(datasets_directory, rllib_trial_path):
         value = da.concatenate(values, axis=0)
         latent_space_dataset_handler.save({key: value})
 
-    latent_space_dataset_handler.save({'index_episodes': data['index_episodes']})
-    latent_space_dataset_handler.save({'rendering': data['rendering']})
+    for subgroup_name in observations_dataset_handler.get_subgroups_name():
+        subgroup_data = observations_dataset_handler.load([subgroup_name])
+        latent_space_dataset_handler.save({subgroup_name: subgroup_data[subgroup_name]})

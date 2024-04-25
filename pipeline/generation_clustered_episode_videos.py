@@ -36,10 +36,9 @@ def display_numeric_value(image, value, position=(50, 200), color=(255, 255, 255
     return image
 
 
-def generation_clustered_episode_videos(video_directory, datasets_directory, classifiers_directory):
+def generation_clustered_episode_videos(video_directory, datasets_directory, classifiers_directory, number_episode):
     print('-- Generate clustered episode videos --')
     print()
-    number_episode = 200
     dataset = DatasetHandler(datasets_directory, 'latent_space')
     episodes = dataset.load_episodes(keys=['rendering', 'latent_space'], number_episode=number_episode)   # dataset.size('index_episodes')
     classifiers = load_classifiers(classifiers_directory)

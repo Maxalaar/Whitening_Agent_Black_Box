@@ -9,11 +9,11 @@ from utilities.sklearn_classifier_handler import load_classifiers
 from visualizations.visualization import finding_number_clusters
 
 
-def generation_cluster_videos(video_directory, datasets_directory, classifiers_directory):
+def generation_cluster_videos(video_directory, datasets_directory, classifiers_directory, number_episode):
     print('-- Generate cluster videos --')
     print()
     dataset = DatasetHandler(datasets_directory, 'latent_space')
-    episodes = dataset.load_episodes(keys=['rendering', 'latent_space'], number_episode=200)   # dataset.size('index_episodes')
+    episodes = dataset.load_episodes(keys=['rendering', 'latent_space'], number_episode=number_episode)   # dataset.size('index_episodes')
     classifiers = load_classifiers(classifiers_directory)
     delete_directory(video_directory)
     create_directory(video_directory)

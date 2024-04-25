@@ -32,7 +32,7 @@ class PanelControl:
     def update(self):
         self.checkbox_selection_classifier.options = self.visualization.classifier_names
         self.checkbox_selection_classifier.value = self.visualization.name_selected_classifier
-        self.multi_choice_selection_cluster.options = [str(i) for i in range(self.visualization.number_cluster - 1)]
+        self.multi_choice_selection_cluster.options = [str(i) for i in range(self.visualization.number_cluster)]
 
         if len(self.visualization.names_selected_cluster) > 0:
             self.multi_choice_selection_cluster.value = self.visualization.names_selected_cluster

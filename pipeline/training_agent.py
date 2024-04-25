@@ -22,8 +22,9 @@ def training_agent(rllib_directory, rllib_trial_name, environment_name: str, env
             train_batch_size=8000,
         )
         .rollouts(
-            num_rollout_workers=6,
-            batch_mode='complete_episodes'
+            num_rollout_workers=8,
+            num_envs_per_worker=2,
+            batch_mode='complete_episodes',
         )
         .resources(
             num_gpus=1,

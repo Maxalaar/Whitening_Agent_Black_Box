@@ -10,6 +10,7 @@ def ball_observation_space():
 
 class Ball:
     def __init__(self, environment, id):
+        self.matriculation = id
         self.id = 'ball_' + str(id)
         self.environment = environment
         self.speed: float = environment.ball_speed

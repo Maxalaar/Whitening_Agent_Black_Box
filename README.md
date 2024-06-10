@@ -28,10 +28,32 @@ This guide explains how to set up a Conda environment for working with Ray RLlib
    pip install swig
    pip install gymnasium[box2d]
    pip install h5py
-   conda install -c conda-forge "ray[rllib]"
+   conda install conda-forge::ray-rllib 
    conda install bokeh
    conda install -c conda-forge altair-all
    conda install dask
    conda install pytables
+   conda install conda-forge::pygame
+   pip install tensorboard
    ```
+
+## Idea for the continuation:
+
+    Auto-Encoder
+    Attention
+    Base Model
+    Temporal Sequence
+    Hierarchical Division
+    Representation of Dynamics
+    Use of Clusters for Decision Trees in an Interpretable Form
+
+## Libraries:
+
+    Deep Learning Model -> PyTorch
+    Reinforcement Learning -> RLlib
+    Storage System -> dask.array
+    Clustering -> dask-ml
+    Visualization -> Bokeh
+
+
    

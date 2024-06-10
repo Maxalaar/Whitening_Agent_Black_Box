@@ -48,6 +48,7 @@ class PongSurvivor(gym.Env):
         self.render_mode = environment_configuration.get('render_mode', None)
         self.render_environment = None
         self.display_arrows = environment_configuration.get('display_arrows', True)
+        self.arrow_size = environment_configuration.get('display_arrows', 50)
         self.display_number = environment_configuration.get('display_number', True)
 
         self._current_time_steps: int = None

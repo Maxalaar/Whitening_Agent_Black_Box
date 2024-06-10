@@ -24,7 +24,6 @@ class RenderEnvironment:
         self.window_size = (int(environment.play_area[0] * self.window_size_coefficient), int(environment.play_area[1] * self.window_size_coefficient))
 
         self.ball_size = int(2 * self.window_size_coefficient)
-        self.arrow_size = 20
         self.paddle_offset = 3
 
         self.human_render_is_init: bool = False
@@ -82,8 +81,8 @@ class RenderEnvironment:
 
         if self.environment.display_arrows:
             velocity_norm = np.linalg.norm(ball.velocity)
-            velocity = ball.velocity / velocity_norm * self.arrow_size
-            draw_arrow(self.canvas, (255, 255, 255), ball.position[0] * self.window_size_coefficient, ball.position[1] * self.window_size_coefficient, ball.position[0] * self.window_size_coefficient + velocity[0], ball.position[1] * self.window_size_coefficient + velocity[1], 1)
+            velocity = ball.velocity / velocity_norm * self.environment.arrow_size
+            draw_arrow(self.canvas, (255, 255, 255), ball.position[0] * self.window_size_coefficient, ball.position[1] * self.window_size_coefficient, ball.position[0] * self.window_size_coefficient + velocity[0], ball.position[1] * self.window_size_coefficient + velocity[1], self.environment.arrow_size*0.2)
 
     def _draw_paddle(self, paddle):
         pygame.draw.rect(

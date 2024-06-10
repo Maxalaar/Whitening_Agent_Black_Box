@@ -34,7 +34,10 @@ def training_agent(rllib_directory, rllib_trial_name, environment_name: str, env
             # num_cpus_per_learner_worker=2,
             num_gpus_per_learner_worker=0.3,
         )
-        .evaluation(evaluation_num_workers=1)
+        .evaluation(
+            evaluation_interval=50,
+            evaluation_num_workers=1,
+        )
     )
 
     tuner = tune.Tuner(
@@ -44,7 +47,7 @@ def training_agent(rllib_directory, rllib_trial_name, environment_name: str, env
             name=rllib_trial_name,
             storage_path=rllib_directory,
             stop={
-                'time_total_s': 60 * 60 * 1,
+                'time_total_s': 60 * 60 * 3,
                 # 'episode_reward_mean': 0.95,
             },
             checkpoint_config=air.CheckpointConfig(

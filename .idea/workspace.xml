@@ -4,17 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d79a488c-ca55-4e22-a705-7a6efe046d96" name="Changes" comment="ADD : generation_statistics_cluster.py">
+    <list default="true" id="d79a488c-ca55-4e22-a705-7a6efe046d96" name="Changes" comment="ADD : display ball number">
+      <change afterPath="$PROJECT_DIR$/executables/run_monitoring.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/environments/pong_survivor/ball.py" beforeDir="false" afterPath="$PROJECT_DIR$/environments/pong_survivor/ball.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/environments/pong_survivor/pong_survivor.py" beforeDir="false" afterPath="$PROJECT_DIR$/environments/pong_survivor/pong_survivor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/environments/pong_survivor/render.py" beforeDir="false" afterPath="$PROJECT_DIR$/environments/pong_survivor/render.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executables/play_pong_survivor.py" beforeDir="false" afterPath="$PROJECT_DIR$/executables/play_pong_survivor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/executables/run_pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/executables/run_pipeline.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pipeline/generation_cluster_videos.py" beforeDir="false" afterPath="$PROJECT_DIR$/pipeline/generation_cluster_videos.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pipeline/generation_clustered_episode_videos.py" beforeDir="false" afterPath="$PROJECT_DIR$/pipeline/generation_clustered_episode_videos.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/executables/run_visualizations.py" beforeDir="false" afterPath="$PROJECT_DIR$/executables/run_visualizations.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pipeline/training_agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/pipeline/training_agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualizations/panel_control.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualizations/panel_control.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,6 +60,8 @@
   "keyToString": {
     "Python.bokeh_mass_plot.executor": "Run",
     "Python.clean_rl_test.executor": "Run",
+    "Python.concept_analysis.executor": "Run",
+    "Python.concept_analysis_v2.executor": "Run",
     "Python.dask_array.executor": "Debug",
     "Python.dask_h5.executor": "Debug",
     "Python.debug_bokeh.executor": "Run",
@@ -109,6 +109,7 @@
     "Python.play_pong_survivor.executor": "Run",
     "Python.pytorch.executor": "Run",
     "Python.ray_dataset.executor": "Run",
+    "Python.run_monitoring.executor": "Run",
     "Python.run_pipeline.executor": "Run",
     "Python.run_visualizations.executor": "Run",
     "Python.training_agent.executor": "Run",
@@ -145,8 +146,8 @@
       <command value="conda install anaconda::h5py" />
     </option>
   </component>
-  <component name="RunManager" selected="Python.run_pipeline">
-    <configuration name="debug_statistics_cluster" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.concept_analysis_v2">
+    <configuration name="concept_analysis_v2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Whitening_Agent_Black_Box" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -159,29 +160,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/debug/debug_statistics_cluster.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="hierarchical_clustering" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Whitening_Agent_Black_Box" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/debug" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/debug/hierarchical_clustering.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/debug/concept_analysis_v2.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -204,6 +183,28 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/executables/play_pong_survivor.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="run_monitoring" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Whitening_Agent_Black_Box" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/executables/run_monitoring.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -257,26 +258,26 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.debug_statistics_cluster" />
-      <item itemvalue="Python.hierarchical_clustering" />
-      <item itemvalue="Python.play_pong_survivor" />
+      <item itemvalue="Python.concept_analysis_v2" />
       <item itemvalue="Python.run_visualizations" />
+      <item itemvalue="Python.run_monitoring" />
+      <item itemvalue="Python.play_pong_survivor" />
       <item itemvalue="Python.run_pipeline" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.concept_analysis_v2" />
+        <item itemvalue="Python.run_visualizations" />
         <item itemvalue="Python.run_pipeline" />
         <item itemvalue="Python.play_pong_survivor" />
-        <item itemvalue="Python.run_visualizations" />
-        <item itemvalue="Python.debug_statistics_cluster" />
-        <item itemvalue="Python.hierarchical_clustering" />
+        <item itemvalue="Python.run_monitoring" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-0509580d9d50-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.14494.241" />
+        <option value="bundled-python-sdk-48aec45f0201-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.17011.127" />
       </set>
     </attachedChunks>
   </component>
@@ -481,7 +482,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713982429773</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="ADD : display ball number">
+      <option name="closed" value="true" />
+      <created>1714034188661</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1714034188661</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -509,7 +518,8 @@
     <MESSAGE value="ADD : new architecture, function for generating clustered videos." />
     <MESSAGE value="ADD : new architecture" />
     <MESSAGE value="ADD : generation_statistics_cluster.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="ADD : generation_statistics_cluster.py" />
+    <MESSAGE value="ADD : display ball number" />
+    <option name="LAST_COMMIT_MESSAGE" value="ADD : display ball number" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

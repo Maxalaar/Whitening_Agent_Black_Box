@@ -46,6 +46,8 @@ This guide explains how to set up a Conda environment for working with Ray RLlib
     Hierarchical Division
     Representation of Dynamics
     Use of Clusters for Decision Trees in an Interpretable Form
+    Use Numba
+   
 
 ## Libraries:
 

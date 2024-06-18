@@ -7,7 +7,7 @@ from ray.rllib.algorithms.ppo import PPOConfig, PPO
 from utilities.global_include import delete_directory
 
 
-def training_agent(rllib_directory, rllib_trial_name, environment_name: str, environment_configration: dict, architecture_name: str, architecture_configuration: dict):
+def training_agent(rllib_directory, rllib_trial_name, environment_name: str, environment_configration: dict, architecture_name: str, architecture_configuration: dict, training_time: int = 60 * 60 * 1):
     delete_directory(os.path.expanduser('~/ray_results/' + rllib_trial_name))
 
     algorithm_configuration: AlgorithmConfig = (
@@ -37,6 +37,7 @@ def training_agent(rllib_directory, rllib_trial_name, environment_name: str, env
         .evaluation(
             evaluation_interval=50,
             evaluation_num_workers=1,
+            evaluation_duration=100,
         )
     )
 
@@ -47,14 +48,14 @@ def training_agent(rllib_directory, rllib_trial_name, environment_name: str, env
             name=rllib_trial_name,
             storage_path=rllib_directory,
             stop={
-                'time_total_s': 60 * 60 * 3,
+                'time_total_s': training_time,
                 # 'episode_reward_mean': 0.95,
             },
             checkpoint_config=air.CheckpointConfig(
                 num_to_keep=1,
                 checkpoint_score_attribute='episode_reward_mean',
                 checkpoint_score_order='max',
-                checkpoint_frequency=40,
+                checkpoint_frequency=100,
                 checkpoint_at_end=True,
             )
         ),
